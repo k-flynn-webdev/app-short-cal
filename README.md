@@ -1,3 +1,3 @@
 # app-short-cal
 
-Create fancy calendar pages from iCal data
+Create a fancy calendar pages from iCal data

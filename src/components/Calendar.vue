@@ -1,41 +1,31 @@
 <script setup>
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
 import { useCounterStore } from "@/stores/counter";
+import Month from "@/components/Month.vue";
 
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-});
+let chosen = 0;
 
-// const message = ref("Hello World!");
-// const isRed = ref(true);
-// const color = ref("green");
+const chosenMonth = ref({});
+const september = { name: "September", dates: [1, 2, 3] };
+const december = { name: "December", dates: [6, 7] };
+
+const updateMonth = () => {
+  chosen = chosen ? 0 : 1;
+
+  if (chosen) {
+    chosenMonth.value = { ...september };
+  } else {
+    chosenMonth.value = { ...december };
+  }
+};
 
 const counter = useCounterStore();
-
-// function toggleRed() {
-//   isRed.value = !isRed.value;
-// }
-//
-// function toggleColor() {
-//   color.value = color.value === "green" ? "blue" : "green";
-// }
 </script>
 
 <template>
   <div>
-    <h1>
-      Hover your mouse over me for a few seconds to see my dynamically bound
-      title!
-    </h1>
+    <button @click="updateMonth">++</button>
 
-    <button @click="counter.increment()">
-      {{ counter.counter }}
-    </button>
-
-    <p>{{ counter.counter }}</p>
+    <Month :month="chosenMonth" />
   </div>
 </template>

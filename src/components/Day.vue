@@ -5,6 +5,9 @@ defineProps({
     required: true,
   },
 });
+
+// Days need:
+// - to be aware of what group of days its a apart of so it blends together correctly
 </script>
 
 <template>
@@ -14,8 +17,8 @@ defineProps({
 </template>
 
 <style>
-.day {
-  padding: 0.5rem;
-  border: 2px solid #2c3e50;
-}
+/*.day {*/
+/*  padding: 0.5rem;*/
+/*  border: 2px solid #2c3e50;*/
+/*}*/
 </style>

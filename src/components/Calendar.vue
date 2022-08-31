@@ -38,6 +38,9 @@ const updateMonth = () => {
   }
 };
 
+// defineExpose({
+//   updateWidth,
+// });
 // const counter = useCounterStore();
 </script>
 

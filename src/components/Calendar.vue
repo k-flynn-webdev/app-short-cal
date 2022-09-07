@@ -5,38 +5,74 @@ import Month from "@/components/Month.vue";
 
 const september = {
   name: "September",
+  id: 8,
   dates: [
     [1, 2, 3],
     [6, 7],
     [12, 13, 14],
-  ],
-};
-const december = {
-  name: "December",
-  dates: [
-    [6, 7],
-    [12, 13, 14],
+    [16],
+    [18, 19, 20, 21, 22, 23, 24],
+    [26, 27],
+    [30],
   ],
 };
 
 let chosen = 0;
-const chosenMonth = ref({ ...september });
-
 let chosenWidth = ref(3);
+
+const chosenMonth = ref({ ...september });
 
 const updateWidth = (value) => {
   chosenWidth.value = value;
 };
 
-const updateMonth = () => {
-  chosen = chosen ? 0 : 1;
-
-  if (chosen) {
-    chosenMonth.value = { ...september };
-  } else {
-    chosenMonth.value = { ...december };
-  }
+const getMin = (dateGroup) => {
+  return Math.min(...dateGroup);
 };
+
+const getMax = (dateGroup) => {
+  return Math.max(...dateGroup);
+};
+
+const isSameDate = (date01, date02) => {
+  return date01 === date02;
+};
+
+let monthData = ref([]);
+
+const monthBuilder = (month, columns) => {
+  const result = month.dates.reduce((acc, item, idx) => {
+    const minDate = getMin(item);
+    const maxDate = getMax(item);
+
+    item.forEach((date) => {
+      acc.push(date);
+    });
+
+    if (isSameDate(minDate, maxDate)) {
+      // acc.push(null);
+      // return acc;
+    }
+
+    // group spacer
+    acc.push(false);
+
+    return acc;
+  }, []);
+
+  monthData.value = result;
+  return result;
+};
+
+// const updateMonth = () => {
+//   chosen = chosen ? 0 : 1;
+//
+//   if (chosen) {
+//     chosenMonth.value = { ...september };
+//   } else {
+//     chosenMonth.value = { ...december };
+//   }
+// };
 
 // defineExpose({
 //   updateWidth,
@@ -46,7 +82,10 @@ const updateMonth = () => {
 
 <template>
   <div>
+    <button @click="monthBuilder(september)">RUN</button>
+
     <br />
+
     <template :key="count" v-for="count in [2, 3, 4, 5, 6]">
       <button @click="updateWidth(count)">{{ count }}</button>
     </template>
@@ -59,7 +98,10 @@ const updateMonth = () => {
         width: `${chosenWidth * 2.5}rem`,
       }"
     >
-      <Month :columns="chosenWidth" :month="chosenMonth" />
+      <template :key="date" v-for="date in monthData">
+        <div>{{ date }}</div>
+      </template>
+      <!--      <Month :columns="chosenWidth" :month="chosenMonth" />-->
     </div>
   </div>
 </template>

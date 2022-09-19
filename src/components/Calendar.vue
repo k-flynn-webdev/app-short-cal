@@ -49,7 +49,7 @@ const groupBuilder = (groupDate, colCount) => {
   if (typeof colCount !== "number") throw "Missing colCount";
 
   let build = {
-    fullLine: false,
+    lines: 0,
     days: [],
   };
 
@@ -62,7 +62,9 @@ const groupBuilder = (groupDate, colCount) => {
     });
   }
 
-  build.fullLine = build.days.length > colCount;
+  if (build.days.length > 0) {
+    build.lines = Math.floor(build.days.length / colCount);
+  }
 
   return build;
 };

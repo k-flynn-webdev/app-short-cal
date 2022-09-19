@@ -72,21 +72,21 @@ test("Calendar - groupBuilder - return basic group objects", () => {
   const empty = {
     test: [[], 0],
     result: {
-      fullLine: false,
+      lines: 0,
       days: [],
     },
   };
   const fullLine = {
     test: [[1, 2, 3, 4], 3],
     result: {
-      fullLine: true,
+      lines: 1,
       days: [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }],
     },
   };
   const multiLine = {
     test: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3],
     result: {
-      fullLine: true,
+      lines: 3,
       days: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
         return { value: item };
       }),

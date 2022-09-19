@@ -20,10 +20,10 @@ test("Calendar - monthBuilder - function", () => {
   expect(wrapper.vm.monthBuilder).toStrictEqual(expect.any(Function));
 });
 
-test("Calendar - monthBuilder - return array", () => {
-  const wrapper = shallowMount(Calendar);
-  expect(wrapper.vm.monthBuilder(september)).toStrictEqual(expect.any(Array));
-});
+// test("Calendar - monthBuilder - return array", () => {
+//   const wrapper = shallowMount(Calendar);
+//   expect(wrapper.vm.monthBuilder(september)).toStrictEqual(expect.any(Array));
+// });
 
 test("Calendar - getMin - return smallest of a group of numbers", () => {
   const wrapper = shallowMount(Calendar);
@@ -46,4 +46,54 @@ test("Calendar - isSameDate - return dates provided are same", () => {
   expect(wrapper.vm.isSameDate(1234, 12345)).toBe(false);
   expect(wrapper.vm.isSameDate(12, 12)).toBe(true);
   expect(wrapper.vm.isSameDate(96.25, 96.25)).toBe(true);
+});
+
+test("Calendar - groupBuilder - throw missing group data", () => {
+  const wrapper = shallowMount(Calendar);
+  try {
+    wrapper.vm.groupBuilder();
+  } catch (e) {
+    expect(e).toBe("Missing group data");
+  }
+});
+
+test("Calendar - groupBuilder - throw missing colCount", () => {
+  const wrapper = shallowMount(Calendar);
+  try {
+    wrapper.vm.groupBuilder([], 0);
+  } catch (e) {
+    expect(e).toBe("Missing colCount");
+  }
+});
+
+test("Calendar - groupBuilder - return basic group objects", () => {
+  const wrapper = shallowMount(Calendar);
+
+  const empty = {
+    test: [[], 0],
+    result: {
+      fullLine: false,
+      days: [],
+    },
+  };
+  const fullLine = {
+    test: [[1, 2, 3, 4], 3],
+    result: {
+      fullLine: true,
+      days: [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }],
+    },
+  };
+  const multiLine = {
+    test: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3],
+    result: {
+      fullLine: true,
+      days: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
+        return { value: item };
+      }),
+    },
+  };
+
+  [empty, fullLine, multiLine].forEach((item) => {
+    expect(wrapper.vm.groupBuilder(...item.test)).toEqual(item.result);
+  });
 });

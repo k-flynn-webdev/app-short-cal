@@ -44,42 +44,38 @@ const createCalObject = () => {
   return { row: { count: 0 }, groups: [] };
 };
 
-const groupBuilder = (group, offset, colCount) => {
+const groupBuilder = (groupDate, colCount) => {
+  if (!groupDate) throw "Missing group data";
+  if (typeof colCount !== "number") throw "Missing colCount";
+
   let build = {
-    spacer: 0,
-    offset: offset,
     fullLine: false,
-    newLine: false,
     days: [],
   };
 
-  const minGroupDate = getMin(group);
-  const maxGroupDate = getMax(group) + 1;
+  const minGroupDate = getMin(groupDate);
+  const maxGroupDate = getMax(groupDate) + 1;
 
   for (let i = minGroupDate, max = maxGroupDate; i < max; i++) {
     build.days.push({
       value: i,
-      count: build.offset % colCount,
     });
-    build.offset += 1;
   }
 
-  build.newLine =
-    build.days.length > 1 && build.days.some((item) => item.count === 0);
   build.fullLine = build.days.length > colCount;
 
   return build;
 };
 
 const monthBuilder = (month, colCount) => {
-  const result = month.dates.reduce((acc, group, idx) => {
-    const minRangeDate = getMin(group);
-    const maxRangeDate = getMax(group) + 1;
+  const result = month.dates.reduce((acc, groupDate, idx) => {
+    const minRangeDate = getMin(groupDate);
+    const maxRangeDate = getMax(groupDate) + 1;
 
     const rangeLength = maxRangeDate - minRangeDate;
     // const rowCount = acc.row.count + rangeLength;
 
-    let build = groupBuilder(group, acc.row.count, colCount);
+    let build = groupBuilder(groupDate, acc.row.count, colCount);
     acc.row.count += rangeLength;
 
     const spaceLeft = acc.row.count % colCount;

@@ -97,3 +97,23 @@ test("Calendar - groupBuilder - return basic group objects", () => {
     expect(wrapper.vm.groupBuilder(...item.test)).toEqual(item.result);
   });
 });
+
+test("Calendar - monthBuilder - return basic month object", () => {
+  const wrapper = shallowMount(Calendar);
+  const basicMonth = {
+    test: { name: "xxx", id: 0, dates: [] },
+    result: {
+      name: "xxx",
+      id: 0,
+      dates: [],
+      groups: [],
+      row: { count: 0 },
+    },
+  };
+
+  console.log(wrapper.vm.monthBuilder(basicMonth.test, 3));
+
+  // expect(wrapper.vm.monthBuilder(basicMonth.test, 3)).toEqual(
+  //   basicMonth.result
+  // );
+});

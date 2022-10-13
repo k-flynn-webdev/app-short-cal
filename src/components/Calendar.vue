@@ -40,8 +40,8 @@ const isSameDate = (date01, date02) => {
 
 let monthData = ref([]);
 
-const createCalObject = () => {
-  return { row: { count: 0 }, groups: [] };
+const createCalObject = (monthData) => {
+  return { row: { count: 0 }, groups: [], ...monthData };
 };
 
 const groupBuilder = (groupDate, colCount) => {
@@ -71,25 +71,25 @@ const groupBuilder = (groupDate, colCount) => {
 
 const monthBuilder = (month, colCount) => {
   const result = month.dates.reduce((acc, groupDate, idx) => {
-    const minRangeDate = getMin(groupDate);
-    const maxRangeDate = getMax(groupDate) + 1;
+    // const minRangeDate = getMin(groupDate);
+    // const maxRangeDate = getMax(groupDate) + 1;
 
-    const rangeLength = maxRangeDate - minRangeDate;
+    // const rangeLength = maxRangeDate - minRangeDate;
     // const rowCount = acc.row.count + rangeLength;
 
-    let build = groupBuilder(groupDate, acc.row.count, colCount);
-    acc.row.count += rangeLength;
+    let groupBuild = groupBuilder(groupDate, colCount);
+    // acc.row.count += rangeLength;
 
-    const spaceLeft = acc.row.count % colCount;
+    // const spaceLeft = acc.row.count % colCount;
     // if (spaceLeft > 0) {
     //   const forceNewLine = build.newLine && build.fullLine;
     //   build.spacer = forceNewLine ? 1 : spaceLeft;
     //   acc.row.count += forceNewLine ? 1 : spaceLeft;
     // }
-    build.spacer = spaceLeft;
-    acc.row.count += spaceLeft;
+    // build.spacer = spaceLeft;
+    // acc.row.count += spaceLeft;
 
-    acc.groups.push(build);
+    acc.groups.push(groupBuild);
     // console.log(acc.row.count, spaceLeft);
 
     // add spacer
@@ -119,9 +119,9 @@ const monthBuilder = (month, colCount) => {
     // acc.push(false);
 
     return acc;
-  }, createCalObject());
+  }, createCalObject(monthData));
 
-  monthData.value = result;
+  // monthData.value = result;
   return result;
 };
 

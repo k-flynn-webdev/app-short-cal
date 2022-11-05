@@ -1,27 +1,27 @@
 <script setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 // import { useCounterStore } from "@/stores/counter";
 // import Month from "@/components/Month.vue";
 
-const createGroupObject = (daysData, offset) => {
+const createGroupObject = (daysData) => {
   const grpObj = {
-    days: daysData?.days || 0,
-    offset: offset || 0,
-    leftWall: 0,
-    rightWall: 0,
-    lines: 0,
+    data: daysData || {},
+    lines: [],
+    direction: 1,
   };
 
   return grpObj;
 };
 
-const groupBuilder = (daysData, colCount) => {
+const groupBuilder = (daysData, colCount, start) => {
   if (!daysData) throw "Missing days data";
   if (typeof colCount !== "number") throw "Missing colCount";
 
-  let build = createGroupObject(daysData, 1);
+  let grpObj = createGroupObject(daysData);
 
-  return build;
+  // rules
+
+  return grpObj;
 };
 </script>
 

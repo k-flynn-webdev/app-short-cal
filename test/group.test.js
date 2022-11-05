@@ -21,11 +21,9 @@ test("Group - createGroupObject - function", () => {
 });
 
 const mockGroupData = {
-  days: 0,
-  offset: 0,
-  leftWall: 0,
-  rightWall: 0,
-  lines: 0,
+  data: {},
+  lines: [],
+  direction: 1,
 };
 
 test("Group - createGroupObject - return a empty base group object", () => {
@@ -35,11 +33,11 @@ test("Group - createGroupObject - return a empty base group object", () => {
 
 test("Group - createGroupObject - return days and offset", () => {
   const wrapper = shallowMount(Group);
-  const days = 31;
-  const offset = 15;
-  expect(
-    wrapper.vm.createGroupObject({ ...mockGroupData, days }, offset)
-  ).toStrictEqual({ ...mockGroupData, days, offset });
+  const daysData = { days: 31 };
+  expect(wrapper.vm.createGroupObject(daysData)).toStrictEqual({
+    ...mockGroupData,
+    data: { days: 31 },
+  });
 });
 
 test("Group - groupBuilder - function", () => {
@@ -67,13 +65,11 @@ test("Group - groupBuilder - throw missing colCount", () => {
 
 test("Group - groupBuilder - return basic object", () => {
   const wrapper = shallowMount(Group);
-  const days = 22;
+  const days = { days: [12] };
   const columns = 13;
-  expect(wrapper.vm.groupBuilder({ days }, columns)).toEqual({
-    days: days,
-    leftWall: 0,
-    rightWall: 0,
-    lines: 0,
-    offset: 1,
+  expect(wrapper.vm.groupBuilder(days, columns)).toEqual({
+    data: days,
+    lines: [],
+    direction: 1,
   });
 });

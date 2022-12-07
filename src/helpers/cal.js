@@ -1,8 +1,15 @@
 export function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1) + min);
+  // The maximum is inclusive and the minimum is inclusive
 }
+
+const MIN_CALS = 1;
+const MIN_EVENTS = 5;
+
+const MAX_CALS = 4;
+const MAX_EVENTS = 5;
 
 export const createRandomCal = (min, max) => {
   let calData = [];
@@ -10,7 +17,9 @@ export const createRandomCal = (min, max) => {
 
   for (let i = 0; i < maxEvents; i++) {
     const start = getRandomIntInclusive(1, 31);
-    const end = getRandomIntInclusive(start, 31);
+    const testBuffer = getRandomIntInclusive(1, 10);
+    const endWithBuffer = start + testBuffer < 31 ? start + testBuffer : 31;
+    const end = getRandomIntInclusive(start, endWithBuffer);
 
     calData.push({
       start,
@@ -20,12 +29,6 @@ export const createRandomCal = (min, max) => {
   }
   return calData;
 };
-
-const MIN_CALS = 1;
-const MIN_EVENTS = 1;
-
-const MAX_CALS = 2;
-const MAX_EVENTS = 2;
 
 export const createRandomCals = () => {
   let calData = [];

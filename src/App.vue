@@ -1,5 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import ColsButton from "@/components/ColsButton.vue";
+import CalsButton from "@/components/CalsButton.vue";
 </script>
 
 <template>
@@ -7,6 +9,9 @@ import { RouterLink, RouterView } from "vue-router";
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/about">About</RouterLink>
   </div>
+
+  <ColsButton />
+  <CalsButton />
 
   <RouterView />
 </template>

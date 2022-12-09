@@ -1,8 +1,8 @@
 export function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min);
   // The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 const MIN_CALS = 1;
@@ -41,7 +41,7 @@ export const createRandomCals = () => {
   return calData;
 };
 
-export const createDaysArray = () => {
+export const createDatesArray = () => {
   let days = [];
   for (let i = 1, max = 31; i <= max; i++) {
     days.push(i);
@@ -51,7 +51,7 @@ export const createDaysArray = () => {
 };
 
 export const createMonthObj = () => {
-  let days = createDaysArray();
+  let days = createDatesArray();
   let month = {};
   days.forEach((day) => {
     month[day] = [];
@@ -60,9 +60,9 @@ export const createMonthObj = () => {
   return month;
 };
 
-export const createMonthDataObj = (input) => {
+export const createDataObj = (input) => {
   // generate all the data from calendars
-  return input.value.reduce((acc, currentCal, index) => {
+  return input.reduce((acc, currentCal, index) => {
     currentCal.forEach((cal) => {
       for (let i = cal.start, max = cal.end; i <= max; i++) {
         acc[i].push({ id: cal.id, calIndex: index });
@@ -73,20 +73,20 @@ export const createMonthDataObj = (input) => {
   }, createMonthObj());
 };
 
-export const createMonthDataIslands = (input) => {
+export const createDataIslands = (input) => {
   // generate the islands (start end of each date island)
-  let days = createDaysArray();
+  let days = createDatesArray();
   let activeStartEndDays = [];
   let dateIslands = [];
   let dayPrevious = false;
 
   days.forEach((day) => {
-    if (dayPrevious !== input.value[day]?.length > 0) {
+    if (dayPrevious !== input[day]?.length > 0) {
       const dayNegate = dayPrevious ? 1 : 0;
       activeStartEndDays.push(day - dayNegate);
     }
 
-    dayPrevious = input.value[day]?.length > 0;
+    dayPrevious = input[day]?.length > 0;
   });
   if (dayPrevious) activeStartEndDays.push(days.length);
 

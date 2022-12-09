@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
-import { createRandomCals } from "../helpers/cal";
+import {
+  createDataIslands,
+  createDataObj,
+  createRandomCals,
+} from "../helpers/cal";
 
 export const useCalsStore = defineStore({
   id: "cals",
@@ -8,6 +12,10 @@ export const useCalsStore = defineStore({
   }),
   getters: {
     getCals: (state) => state.cals,
+    getCalDataIslands: (state) => {
+      const calData = createDataObj(state.cals);
+      return createDataIslands(calData);
+    },
   },
   actions: {
     fetchCals() {

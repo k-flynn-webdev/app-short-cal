@@ -1,45 +1,23 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
+// import { ref, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
 
 import { useInfoStore } from "@/stores/info";
 import { useCalsStore } from "@/stores/cals";
-import { createMonthDataObj, createMonthDataIslands } from "../helpers/cal";
 
 const { getCols } = storeToRefs(useInfoStore());
-const { getCals } = storeToRefs(useCalsStore());
-
-const stage01 = ref([]);
-const stage02 = ref([]);
-
-function createStage01() {
-  stage01.value = createMonthDataObj(getCals);
-}
-
-function createStage02() {
-  stage02.value = createMonthDataIslands(stage01);
-}
-
-onBeforeMount(() => {
-  createStage01();
-  createStage02();
-});
+const { getCalDataIslands } = storeToRefs(useCalsStore());
 </script>
 
 <template>
-  <button @click="createStage01">Stage 01</button>
-  <button @click="createStage02">Stage 02</button>
   <div class="container" :class="`width-${getCols}`">
     <div class="day"></div>
     <div class="space"></div>
     <div class="day"></div>
   </div>
-  ]
-  <p>stage 01</p>
-  <div>{{ stage01 }}</div>
+
+  <div>{{ getCalDataIslands }}</div>
   <br />
-  <p>stage 02</p>
-  <div>{{ stage02 }}</div>
 </template>
 
 <style lang="scss">

@@ -1,22 +1,30 @@
 <script setup>
 // import { ref, onBeforeMount } from "vue";
+import GroupItem from "@/components/GroupItem.vue";
+
 import { storeToRefs } from "pinia";
 
 import { useInfoStore } from "@/stores/info";
 import { useCalsStore } from "@/stores/cals";
 
 const { getCols } = storeToRefs(useInfoStore());
-const { getCalDataIslands } = storeToRefs(useCalsStore());
+const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
+  useCalsStore()
+);
 </script>
 
 <template>
   <div class="container" :class="`width-${getCols}`">
-    <div class="day"></div>
-    <div class="space"></div>
-    <div class="day"></div>
+    <GroupItem
+      :key="groupItem"
+      v-for="groupItem in getCalDataIslandsMargin"
+      :group-item="groupItem"
+    />
   </div>
 
   <div>{{ getCalDataIslands }}</div>
+  <br />
+  <div>{{ getCalDataIslandsMargin }}</div>
   <br />
 </template>
 
@@ -27,17 +35,21 @@ const { getCalDataIslands } = storeToRefs(useCalsStore());
   flex-wrap: wrap;
   background-color: #ecb017;
 }
-.day {
+.block {
   width: 2rem;
   height: 2rem;
   color: #2f2828;
   background-color: #3e86c3;
 }
-.space {
+.empty {
   width: 2rem;
   height: 2rem;
   color: #2f2828;
   background-color: #ffffff;
+}
+.new-line {
+  min-height: 0.5rem;
+  width: 100%;
 }
 .width-1 {
   max-width: 2rem;

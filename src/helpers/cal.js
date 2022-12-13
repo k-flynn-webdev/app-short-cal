@@ -99,3 +99,20 @@ export const createDataIslands = (input) => {
 
   return dateIslands;
 };
+
+export const createDataIslandsMargin = (input, cols) => {
+  const dataIslandsList = [];
+
+  input.forEach((item) => {
+    return dataIslandsList.push({
+      margin: {
+        pre: 1,
+        post: 0,
+      },
+      blocks: item.end - item.start || 0,
+      data: { ...item },
+    });
+  });
+
+  return dataIslandsList;
+};

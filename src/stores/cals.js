@@ -20,12 +20,70 @@ export const useCalsStore = defineStore({
     getCalDataIslandsMargin: (state) => {
       const calData = createDataObj(state.cals);
       const dataIslands = createDataIslands(calData);
-      return createDataIslandsMargin(dataIslands);
+
+      return (cols) => createDataIslandsMargin(dataIslands, cols);
     },
   },
   actions: {
     fetchCals() {
       this.cals = createRandomCals();
+      // this.cals = [
+      //   [
+      //     { start: 3, end: 8, id: 0 },
+      //     { start: 29, end: 29, id: 1 },
+      //     { start: 5, end: 5, id: 2 },
+      //     { start: 2, end: 5, id: 3 },
+      //     { start: 25, end: 27, id: 4 },
+      //   ],
+      //   [
+      //     { start: 26, end: 27, id: 0 },
+      //     { start: 21, end: 25, id: 1 },
+      //     { start: 25, end: 25, id: 2 },
+      //     { start: 11, end: 16, id: 3 },
+      //     { start: 20, end: 20, id: 4 },
+      //   ],
+      //   [
+      //     { start: 18, end: 19, id: 0 },
+      //     { start: 6, end: 7, id: 1 },
+      //     { start: 2, end: 6, id: 2 },
+      //     { start: 5, end: 5, id: 3 },
+      //     { start: 29, end: 31, id: 4 },
+      //   ],
+      // ];
+
+      // this.cals = [
+      //   [
+      //     { start: 2, end: 6, id: 0 },
+      //     { start: 30, end: 30, id: 1 },
+      //     { start: 30, end: 31, id: 2 },
+      //     { start: 24, end: 30, id: 3 },
+      //     { start: 19, end: 21, id: 4 },
+      //   ],
+      // ];
+
+      // this.cals = [
+      //   [
+      //     { start: 1, end: 1, id: 0 },
+      //     { start: 5, end: 6, id: 1 },
+      //     { start: 29, end: 31, id: 2 },
+      //     { start: 22, end: 23, id: 3 },
+      //     { start: 19, end: 20, id: 4 },
+      //   ],
+      //   [
+      //     { start: 19, end: 21, id: 0 },
+      //     { start: 31, end: 31, id: 1 },
+      //     { start: 8, end: 8, id: 2 },
+      //     { start: 27, end: 27, id: 3 },
+      //     { start: 16, end: 16, id: 4 },
+      //   ],
+      //   [
+      //     { start: 17, end: 26, id: 0 },
+      //     { start: 20, end: 27, id: 1 },
+      //     { start: 8, end: 11, id: 2 },
+      //     { start: 9, end: 9, id: 3 },
+      //     { start: 31, end: 31, id: 4 },
+      //   ],
+      // ];
     },
   },
 });

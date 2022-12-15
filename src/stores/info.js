@@ -4,7 +4,8 @@ import { getRandomIntInclusive } from "../helpers/cal";
 export const useInfoStore = defineStore({
   id: "info",
   state: () => ({
-    cols: getRandomIntInclusive(2, 7),
+    // cols: getRandomIntInclusive(2, 7),
+    cols: 5,
   }),
   getters: {
     getCols: (state) => state.cols,

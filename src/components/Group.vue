@@ -1,5 +1,5 @@
 <script setup>
-// import { ref, onBeforeMount } from "vue";
+import { computed } from "vue";
 import GroupItem from "@/components/GroupItem.vue";
 
 import { storeToRefs } from "pinia";
@@ -11,21 +11,23 @@ const { getCols } = storeToRefs(useInfoStore());
 const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
   useCalsStore()
 );
+
+const calDataIslandsMargins = computed(() =>
+  getCalDataIslandsMargin.value(getCols.value)
+);
 </script>
 
 <template>
   <div class="container" :class="`width-${getCols}`">
     <GroupItem
+      v-for="groupItem in calDataIslandsMargins"
       :key="groupItem"
-      v-for="groupItem in getCalDataIslandsMargin"
       :group-item="groupItem"
     />
   </div>
 
-  <div>{{ getCalDataIslands }}</div>
   <br />
-  <div>{{ getCalDataIslandsMargin }}</div>
-  <br />
+  <div v-for="item in calDataIslandsMargins" :key="item">{{ item.margin }}</div>
 </template>
 
 <style lang="scss">
@@ -36,6 +38,7 @@ const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
   background-color: #ecb017;
 }
 .block {
+  border: 1px solid grey;
   width: 2rem;
   height: 2rem;
   color: #2f2828;
@@ -46,10 +49,13 @@ const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
   height: 2rem;
   color: #2f2828;
   background-color: #ffffff;
+  &.post {
+    background-color: #a47e7e;
+  }
 }
 .new-line {
-  min-height: 0.5rem;
-  width: 100%;
+  //min-height: 0.5rem;
+  //width: 100%;
 }
 .width-1 {
   max-width: 2rem;
@@ -71,5 +77,14 @@ const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
 }
 .width-7 {
   max-width: 14rem;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 </style>

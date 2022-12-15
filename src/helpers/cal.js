@@ -100,18 +100,66 @@ export const createDataIslands = (input) => {
   return dateIslands;
 };
 
+export const returnBlock = (input) => input.end - input.start;
+
+export const returnBlocksTotal = (input) => {
+  const blockValue = returnBlock(input);
+  return {
+    blocks: blockValue < 2 ? 1 : blockValue,
+    combined: blockValue < 2,
+  };
+};
+
+export const returnMarginsTotal = (input, cols, current) => {
+  let spaceLeftPre = 0;
+  const blockValue = returnBlock(input);
+
+  if (current > 0) {
+    spaceLeftPre = cols - (current % cols);
+
+    if (spaceLeftPre < cols) {
+      if (blockValue > cols) {
+        // item will not fit inline add a space
+        spaceLeftPre = 1;
+      }
+
+      if (blockValue < spaceLeftPre) {
+        // item will fit inline
+        spaceLeftPre = 1;
+      }
+    } else {
+      // item will be new line
+      spaceLeftPre = 0;
+    }
+  }
+
+  return {
+    margin: {
+      pre: spaceLeftPre,
+      post: 0,
+    },
+  };
+};
+
 export const createDataIslandsMargin = (input, cols) => {
   const dataIslandsList = [];
+  let current = 0;
+
+  // TODO: turn into a reducer later on
 
   input.forEach((item) => {
-    return dataIslandsList.push({
-      margin: {
-        pre: 1,
-        post: 0,
-      },
-      blocks: item.end - item.start || 0,
+    const blocks = returnBlocksTotal(item, cols, current);
+    const margins = returnMarginsTotal(item, cols, current);
+
+    const itemObj = {
+      ...blocks,
+      ...margins,
       data: { ...item },
-    });
+    };
+
+    current += itemObj.margin.pre + itemObj.blocks + itemObj.margin.post;
+
+    return dataIslandsList.push(itemObj);
   });
 
   return dataIslandsList;

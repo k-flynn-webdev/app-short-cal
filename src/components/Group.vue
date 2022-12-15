@@ -27,7 +27,7 @@ const calDataIslandsMargins = computed(() =>
   </div>
 
   <br />
-  <div v-for="item in calDataIslandsMargins" :key="item">{{ item.margin }}</div>
+  <div v-for="item in calDataIslandsMargins" :key="item">{{ item }}</div>
 </template>
 
 <style lang="scss">
@@ -52,10 +52,6 @@ const calDataIslandsMargins = computed(() =>
   &.post {
     background-color: #a47e7e;
   }
-}
-.new-line {
-  //min-height: 0.5rem;
-  //width: 100%;
 }
 .width-1 {
   max-width: 2rem;

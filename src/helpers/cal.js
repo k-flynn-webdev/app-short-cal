@@ -11,14 +11,17 @@ const MIN_EVENTS = 5;
 const MAX_CALS = 4;
 const MAX_EVENTS = 5;
 
+const MAX_DATE = 99;
+
 export const createRandomCal = (min, max) => {
   let calData = [];
   const maxEvents = getRandomIntInclusive(min, max);
 
   for (let i = 0; i < maxEvents; i++) {
-    const start = getRandomIntInclusive(1, 31);
+    const start = getRandomIntInclusive(1, MAX_DATE);
     const testBuffer = getRandomIntInclusive(1, 10);
-    const endWithBuffer = start + testBuffer < 31 ? start + testBuffer : 31;
+    const endWithBuffer =
+      start + testBuffer < MAX_DATE ? start + testBuffer : MAX_DATE;
     const end = getRandomIntInclusive(start, endWithBuffer);
 
     calData.push({
@@ -43,7 +46,7 @@ export const createRandomCals = () => {
 
 export const createDatesArray = () => {
   let days = [];
-  for (let i = 1, max = 31; i <= max; i++) {
+  for (let i = 1, max = MAX_DATE; i <= max; i++) {
     days.push(i);
   }
 
@@ -102,7 +105,7 @@ export const createDataIslands = (input) => {
 
 export const returnBlock = (input) => input.end - input.start;
 
-export const returnBlocksTotal = (input) => {
+export const returnBlocksObj = (input) => {
   const blockValue = returnBlock(input);
   return {
     blocks: blockValue < 2 ? 1 : blockValue,
@@ -110,7 +113,7 @@ export const returnBlocksTotal = (input) => {
   };
 };
 
-export const returnMarginsTotal = (input, cols, current) => {
+export const returnMarginsObj = (input, cols, current, idx) => {
   let spaceLeftPre = 0;
   const blockValue = returnBlock(input);
 
@@ -133,7 +136,13 @@ export const returnMarginsTotal = (input, cols, current) => {
     }
   }
 
+  const startLine = Math.floor((current + spaceLeftPre) / cols);
+  const endLine = Math.floor((current + spaceLeftPre + blockValue) / cols);
+
+  let isNewLine = startLine !== endLine;
+
   return {
+    style: isNewLine ? `transform-${idx}` : "",
     margin: {
       pre: spaceLeftPre,
       post: 0,
@@ -147,11 +156,12 @@ export const createDataIslandsMargin = (input, cols) => {
 
   // TODO: turn into a reducer later on
 
-  input.forEach((item) => {
-    const blocks = returnBlocksTotal(item, cols, current);
-    const margins = returnMarginsTotal(item, cols, current);
+  input.forEach((item, idx) => {
+    const blocks = returnBlocksObj(item, cols, current, idx);
+    const margins = returnMarginsObj(item, cols, current, idx);
 
     const itemObj = {
+      idx,
       ...blocks,
       ...margins,
       data: { ...item },

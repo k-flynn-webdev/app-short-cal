@@ -4,7 +4,7 @@ defineProps({
     type: Object,
     required: true,
     default: () => {
-      return { margin: { pre: 1, post: 0, blocks: 0, data: {} } };
+      return { idx: 0, margin: { pre: 1, post: 0, blocks: 0, data: {} } };
     },
   },
 });
@@ -30,18 +30,24 @@ defineProps({
         <span>{{ groupItem.data.start }}</span>
       </div>
 
-      <div v-if="idx === groupItem.blocks - 1" class="block text-right">
+      <div
+        v-if="idx === groupItem.blocks - 1"
+        class="block text-right"
+        :class="groupItem.styleClass"
+      >
         <span>{{ groupItem.data.end }} </span>
         <span>&gt</span>
       </div>
 
-      <div v-if="idx < groupItem.blocks - 1" class="block" />
+      <div
+        v-if="idx < groupItem.blocks - 1"
+        class="block"
+        :class="groupItem.styleClass"
+      />
     </template>
   </template>
 
   <template v-for="idx in groupItem.margin.post" :key="idx">
     <div class="empty post" />
   </template>
-
-  <div class="new-line"></div>
 </template>

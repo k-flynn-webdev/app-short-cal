@@ -135,27 +135,26 @@ export const createDataIslandsMarginObj = (item, cols, current, idx) => {
     data: { ...item },
     margin: 0,
     block: 0,
-    top: { block: 0, content: "" },
-    mid: { block: 0, content: "" },
-    bottom: { block: 0, content: "" },
+    isTall: false,
+    top: { block: 0, content: "", class: [] },
+    mid: { block: 0, content: "", class: [] },
+    bottom: { block: 0, content: "", class: [] },
     current,
   };
 
   blockObj.block = blockTotal(item);
   blockObj.margin = marginTotal(blockObj.block, cols, current);
+  blockObj.isTall = blockObj.block > cols;
 
   const currentLine = Math.floor((current + blockObj.margin) / cols);
+  const line0Point = current + blockObj.margin;
   const line01Point = Math.floor((currentLine + 1) * cols);
   const line02Point = Math.floor((currentLine + 2) * cols);
   const line03Point = Math.floor((currentLine + 3) * cols);
   const endPoint = current + blockObj.margin + blockObj.block;
 
   [
-    {
-      key: "top",
-      min: current + blockObj.margin,
-      max: line01Point,
-    },
+    { key: "top", min: line0Point, max: line01Point },
     { key: "mid", min: line01Point, max: line02Point },
     { key: "bottom", min: line02Point, max: line03Point },
   ].forEach((item) => {
@@ -177,19 +176,28 @@ export const updateContentObj = (input) => {
   if (input.bottom.block > 0) {
     input.top.content = [input.data.start, "", ""];
     input.bottom.content = ["", "", input.data.end];
+
+    input.top.class = ["top", `width-${input.top.block}`, "is-tall"];
+    input.mid.class = ["mid", `width-${input.mid.block}`];
+    input.bottom.class = ["bottom", `width-${input.bottom.block}`, "is-tall"];
     return;
   }
 
   if (input.mid.block > 0) {
     input.top.content = [input.data.start, "", ""];
     input.mid.content = ["", "", input.data.end];
+
+    input.top.class = ["top", `width-${input.top.block}`, "is-tall"];
+    input.mid.class = ["mid", `width-${input.mid.block}`, "is-tall"];
     return;
   }
 
-  if (input.block > 1) {
+  if (input.top.block > 1) {
     input.top.content = [input.data.start, "", input.data.end];
+    input.top.class = ["top", `width-${input.top.block}`];
   } else {
     input.top.content = ["", input.data.start, ""];
+    input.top.class = ["top", `width-${input.top.block}`];
   }
 };
 

@@ -37,7 +37,7 @@ const calDataIslandsMargins = computed(() =>
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #ecb017;
+  //background-color: #ecb017;
 }
 .block {
   display: block;
@@ -70,6 +70,7 @@ const calDataIslandsMargins = computed(() =>
   }
 }
 .top {
+  margin-bottom: 0.5rem;
   background-color: #7ca8d2;
 }
 .bottom {
@@ -81,6 +82,17 @@ const calDataIslandsMargins = computed(() =>
   color: #2f2828;
   background-color: #ffffff;
 }
+.is-tall.block {
+  &.top {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+  &.mid,
+  &.bottom {
+    margin-bottom: 0.5rem;
+  }
+}
+
 .new-line {
   width: 100%;
   min-height: 0.2rem;

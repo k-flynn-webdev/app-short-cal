@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   groupItem: {
     type: Object,
     required: true,
@@ -22,14 +24,10 @@ defineProps({
   <div
     v-if="groupItem.margin"
     class="empty"
-    :class="`width-${groupItem.margin}`"
+    :class="`width-${props.groupItem.margin}`"
   />
 
-  <div
-    v-if="groupItem.top.block"
-    class="block top"
-    :class="`width-${groupItem.top.block}`"
-  >
+  <div v-if="groupItem.top.block" class="block" :class="groupItem.top.class">
     <template :key="item" v-for="item in groupItem.top.content">
       <div class="text">
         {{ item }}
@@ -37,11 +35,7 @@ defineProps({
     </template>
   </div>
 
-  <div
-    v-if="groupItem.mid.block"
-    class="block mid"
-    :class="`width-${groupItem.mid.block}`"
-  >
+  <div v-if="groupItem.mid.block" class="block" :class="groupItem.mid.class">
     <template :key="item" v-for="item in groupItem.mid.content">
       <div class="text">
         {{ item }}
@@ -51,8 +45,8 @@ defineProps({
 
   <div
     v-if="groupItem.bottom.block"
-    class="block bottom"
-    :class="`width-${groupItem.bottom.block}`"
+    class="block"
+    :class="groupItem.bottom.class"
   >
     <template :key="item" v-for="item in groupItem.bottom.content">
       <div class="text">

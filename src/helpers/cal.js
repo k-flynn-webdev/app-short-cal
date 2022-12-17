@@ -147,16 +147,26 @@ export const createDataIslandsMarginObj = (item, cols, current, idx) => {
   const currentLine = Math.floor((current + blockObj.margin) / cols);
   const line01Point = Math.floor((currentLine + 1) * cols);
   const line02Point = Math.floor((currentLine + 2) * cols);
+  const line03Point = Math.floor((currentLine + 3) * cols);
   const endPoint = current + blockObj.margin + blockObj.block;
 
   [
-    { value: current + blockObj.margin, key: "top" },
-    { value: line01Point, key: "mid" },
-    { value: line02Point, key: "bottom" },
+    {
+      key: "top",
+      min: current + blockObj.margin,
+      max: line01Point,
+    },
+    { key: "mid", min: line01Point, max: line02Point },
+    { key: "bottom", min: line02Point, max: line03Point },
   ].forEach((item) => {
-    const test = endPoint - item.value;
-    if (test > 0) {
-      blockObj[item.key].block = test > cols ? cols : test;
+    const testMin = endPoint - item.min;
+    const testMax = endPoint - item.max;
+
+    if (testMin > 0) {
+      blockObj[item.key].block = Math.min(testMin, cols);
+    }
+    if (testMax > 0) {
+      blockObj[item.key].block = item.max - item.min;
     }
   });
 

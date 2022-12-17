@@ -84,22 +84,38 @@ export const useCalsStore = defineStore({
       //     { start: 31, end: 31, id: 4 },
       //   ],
       // ];
-      this.cals = [
-        [
-          { start: 16, end: 17, id: 0 },
-          { start: 58, end: 59, id: 1 },
-          { start: 99, end: 99, id: 2 },
-          { start: 61, end: 62, id: 3 },
-          { start: 75, end: 77, id: 4 },
-        ],
-        [
-          { start: 68, end: 75, id: 0 },
-          { start: 43, end: 43, id: 1 },
-          { start: 72, end: 72, id: 2 },
-          { start: 42, end: 45, id: 3 },
-          { start: 34, end: 34, id: 4 },
-        ],
-      ];
+      // this.cals = [
+      //   [
+      //     { start: 16, end: 17, id: 0 },
+      //     { start: 58, end: 59, id: 1 },
+      //     { start: 99, end: 99, id: 2 },
+      //     { start: 61, end: 62, id: 3 },
+      //     { start: 75, end: 77, id: 4 },
+      //   ],
+      //   [
+      //     { start: 68, end: 75, id: 0 },
+      //     { start: 43, end: 43, id: 1 },
+      //     { start: 72, end: 72, id: 2 },
+      //     { start: 42, end: 45, id: 3 },
+      //     { start: 34, end: 34, id: 4 },
+      //   ],
+      // ];
+      // this.cals = [
+      //   [
+      //     { start: 70, end: 74, id: 0 },
+      //     { start: 90, end: 91, id: 1 },
+      //     { start: 33, end: 36, id: 2 },
+      //     { start: 99, end: 99, id: 3 },
+      //     { start: 30, end: 35, id: 4 },
+      //   ],
+      //   [
+      //     { start: 65, end: 66, id: 0 },
+      //     { start: 91, end: 91, id: 1 },
+      //     { start: 15, end: 15, id: 2 },
+      //     { start: 54, end: 54, id: 3 },
+      //     { start: 81, end: 86, id: 4 },
+      //   ],
+      // ];
     },
   },
 });

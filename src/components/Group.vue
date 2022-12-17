@@ -21,13 +21,15 @@ const calDataIslandsMargins = computed(() =>
   <div class="container" :class="`width-${getCols}`">
     <GroupItem
       v-for="groupItem in calDataIslandsMargins"
-      :key="groupItem"
+      :key="groupItem.idx"
       :group-item="groupItem"
     />
   </div>
 
   <br />
-  <div v-for="item in calDataIslandsMargins" :key="item">{{ item }}</div>
+  <div v-for="item in calDataIslandsMargins" :key="item">
+    {{ item }}
+  </div>
 </template>
 
 <style lang="scss">
@@ -44,14 +46,21 @@ const calDataIslandsMargins = computed(() =>
   color: #2f2828;
   background-color: #3e86c3;
 }
+.top {
+  background-color: #7ca8d2;
+}
+.bottom {
+  background-color: #1e507a;
+}
 .empty {
   width: 2rem;
   height: 2rem;
   color: #2f2828;
   background-color: #ffffff;
-  &.post {
-    background-color: #a47e7e;
-  }
+}
+.new-line {
+  width: 100%;
+  min-height: 0.2rem;
 }
 .width-1 {
   max-width: 2rem;

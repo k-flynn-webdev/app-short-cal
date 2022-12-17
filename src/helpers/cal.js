@@ -103,51 +103,64 @@ export const createDataIslands = (input) => {
   return dateIslands;
 };
 
-export const returnBlock = (input) => input.end - input.start;
-
-export const returnBlocksObj = (input) => {
-  const blockValue = returnBlock(input);
-  return {
-    blocks: blockValue < 2 ? 1 : blockValue,
-    combined: blockValue < 2,
-  };
+export const blockTotal = (input) => {
+  const blockValue = input.end + 1 - input.start;
+  return blockValue > 0 ? blockValue : 0;
 };
 
-export const returnMarginsObj = (input, cols, current, idx) => {
+export const marginTotal = (blocks, cols, current) => {
   let spaceLeftPre = 0;
-  const blockValue = returnBlock(input);
 
   if (current > 0) {
     spaceLeftPre = cols - (current % cols);
 
     if (spaceLeftPre < cols) {
-      if (blockValue > cols) {
-        // item will not fit inline add a space
-        spaceLeftPre = 1;
-      }
+      // item will not fit inline add a space
+      if (blocks > cols) return 1;
 
-      if (blockValue < spaceLeftPre) {
-        // item will fit inline
-        spaceLeftPre = 1;
-      }
+      // item will fit inline
+      if (blocks < spaceLeftPre) return 1;
     } else {
       // item will be new line
-      spaceLeftPre = 0;
+      return 0;
     }
   }
 
-  const startLine = Math.floor((current + spaceLeftPre) / cols);
-  const endLine = Math.floor((current + spaceLeftPre + blockValue) / cols);
+  return spaceLeftPre;
+};
 
-  let isNewLine = startLine !== endLine;
-
-  return {
-    style: isNewLine ? `transform-${idx}` : "",
-    margin: {
-      pre: spaceLeftPre,
-      post: 0,
-    },
+export const createDataIslandsMarginObj = (item, cols, current, idx) => {
+  const blockObj = {
+    idx,
+    data: { ...item },
+    margin: 0,
+    block: 0,
+    top: { block: 0 },
+    mid: { block: 0 },
+    bottom: { block: 0 },
+    current,
   };
+
+  blockObj.block = blockTotal(item);
+  blockObj.margin = marginTotal(blockObj.block, cols, current);
+
+  const currentLine = Math.floor((current + blockObj.margin) / cols);
+  const line01Point = Math.floor((currentLine + 1) * cols);
+  const line02Point = Math.floor((currentLine + 2) * cols);
+  const endPoint = current + blockObj.margin + blockObj.block;
+
+  [
+    { value: current + blockObj.margin, key: "top" },
+    { value: line01Point, key: "mid" },
+    { value: line02Point, key: "bottom" },
+  ].forEach((item) => {
+    const test = endPoint - item.value;
+    if (test > 0) {
+      blockObj[item.key].block = test > cols ? cols : test;
+    }
+  });
+
+  return blockObj;
 };
 
 export const createDataIslandsMargin = (input, cols) => {
@@ -157,17 +170,9 @@ export const createDataIslandsMargin = (input, cols) => {
   // TODO: turn into a reducer later on
 
   input.forEach((item, idx) => {
-    const blocks = returnBlocksObj(item, cols, current, idx);
-    const margins = returnMarginsObj(item, cols, current, idx);
+    const itemObj = createDataIslandsMarginObj(item, cols, current, idx);
 
-    const itemObj = {
-      idx,
-      ...blocks,
-      ...margins,
-      data: { ...item },
-    };
-
-    current += itemObj.margin.pre + itemObj.blocks + itemObj.margin.post;
+    current += itemObj.margin + itemObj.block;
 
     return dataIslandsList.push(itemObj);
   });

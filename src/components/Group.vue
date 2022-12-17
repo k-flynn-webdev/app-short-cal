@@ -40,11 +40,34 @@ const calDataIslandsMargins = computed(() =>
   background-color: #ecb017;
 }
 .block {
+  display: block;
+  background-color: #3e86c3;
   border: 1px solid grey;
-  width: 2rem;
   height: 2rem;
   color: #2f2828;
-  background-color: #3e86c3;
+  position: relative;
+
+  .text {
+    top: 0;
+    display: block;
+    position: absolute;
+    padding: 0 0.5rem;
+  }
+
+  .text:empty {
+    display: none;
+  }
+
+  .text:nth-of-type(1) {
+    left: 0;
+  }
+  .text:nth-of-type(2) {
+    text-align: center;
+    width: 100%;
+  }
+  .text:nth-of-type(3) {
+    right: 0;
+  }
 }
 .top {
   background-color: #7ca8d2;
@@ -63,25 +86,25 @@ const calDataIslandsMargins = computed(() =>
   min-height: 0.2rem;
 }
 .width-1 {
-  max-width: 2rem;
+  width: 2rem;
 }
 .width-2 {
-  max-width: 4rem;
+  width: 4rem;
 }
 .width-3 {
-  max-width: 6rem;
+  width: 6rem;
 }
 .width-4 {
-  max-width: 8rem;
+  width: 8rem;
 }
 .width-5 {
-  max-width: 10rem;
+  width: 10rem;
 }
 .width-6 {
-  max-width: 12rem;
+  width: 12rem;
 }
 .width-7 {
-  max-width: 14rem;
+  width: 14rem;
 }
 .text-left {
   text-align: left;

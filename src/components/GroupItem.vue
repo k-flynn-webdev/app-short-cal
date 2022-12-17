@@ -19,18 +19,60 @@ defineProps({
 </script>
 
 <template>
-  <template v-for="idx in groupItem.margin" :key="idx">
-    <div class="empty" />
-  </template>
-  <template v-for="idx in groupItem.top.block" :key="idx">
-    <div class="block top">{{ groupItem.idx }}</div>
-  </template>
-  <template v-for="idx in groupItem.mid.block" :key="idx">
-    <div class="block mid">{{ groupItem.idx }}</div>
-  </template>
-  <template v-for="idx in groupItem.bottom.block" :key="idx">
-    <div class="block bottom">{{ groupItem.idx }}</div>
-  </template>
+  <div
+    v-if="groupItem.margin"
+    class="empty"
+    :class="`width-${groupItem.margin}`"
+  />
+
+  <div
+    v-if="groupItem.top.block"
+    class="block top"
+    :class="`width-${groupItem.top.block}`"
+  >
+    <template :key="item" v-for="item in groupItem.top.content">
+      <div class="text">
+        {{ item }}
+      </div>
+    </template>
+  </div>
+
+  <div
+    v-if="groupItem.mid.block"
+    class="block mid"
+    :class="`width-${groupItem.mid.block}`"
+  >
+    <template :key="item" v-for="item in groupItem.mid.content">
+      <div class="text">
+        {{ item }}
+      </div>
+    </template>
+  </div>
+
+  <div
+    v-if="groupItem.bottom.block"
+    class="block bottom"
+    :class="`width-${groupItem.bottom.block}`"
+  >
+    <template :key="item" v-for="item in groupItem.bottom.content">
+      <div class="text">
+        {{ item }}
+      </div>
+    </template>
+  </div>
+
+  <!--  <template v-for="idx in groupItem.margin" :key="idx">-->
+  <!--    <div class="empty" />-->
+  <!--  </template>-->
+  <!--  <template v-for="idx in groupItem.top.block" :key="idx">-->
+  <!--    <div class="block top">{{ groupItem.idx }}</div>-->
+  <!--  </template>-->
+  <!--  <template v-for="idx in groupItem.mid.block" :key="idx">-->
+  <!--    <div class="block mid">{{ groupItem.idx }}</div>-->
+  <!--  </template>-->
+  <!--  <template v-for="idx in groupItem.bottom.block" :key="idx">-->
+  <!--    <div class="block bottom">{{ groupItem.idx }}</div>-->
+  <!--  </template>-->
 
   <!--  <div class="new-line"></div>-->
 

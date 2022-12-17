@@ -105,7 +105,7 @@ export const createDataIslands = (input) => {
 
 export const blockTotal = (input) => {
   const blockValue = input.end + 1 - input.start;
-  return blockValue > 0 ? blockValue : 0;
+  return blockValue > 0 ? blockValue : 1;
 };
 
 export const marginTotal = (blocks, cols, current) => {
@@ -135,9 +135,9 @@ export const createDataIslandsMarginObj = (item, cols, current, idx) => {
     data: { ...item },
     margin: 0,
     block: 0,
-    top: { block: 0 },
-    mid: { block: 0 },
-    bottom: { block: 0 },
+    top: { block: 0, content: "" },
+    mid: { block: 0, content: "" },
+    bottom: { block: 0, content: "" },
     current,
   };
 
@@ -173,6 +173,26 @@ export const createDataIslandsMarginObj = (item, cols, current, idx) => {
   return blockObj;
 };
 
+export const updateContentObj = (input) => {
+  if (input.bottom.block > 0) {
+    input.top.content = [input.data.start, "", ""];
+    input.bottom.content = ["", "", input.data.end];
+    return;
+  }
+
+  if (input.mid.block > 0) {
+    input.top.content = [input.data.start, "", ""];
+    input.mid.content = ["", "", input.data.end];
+    return;
+  }
+
+  if (input.block > 1) {
+    input.top.content = [input.data.start, "", input.data.end];
+  } else {
+    input.top.content = ["", input.data.start, ""];
+  }
+};
+
 export const createDataIslandsMargin = (input, cols) => {
   const dataIslandsList = [];
   let current = 0;
@@ -181,6 +201,7 @@ export const createDataIslandsMargin = (input, cols) => {
 
   input.forEach((item, idx) => {
     const itemObj = createDataIslandsMarginObj(item, cols, current, idx);
+    updateContentObj(itemObj);
 
     current += itemObj.margin + itemObj.block;
 

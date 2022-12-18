@@ -21,6 +21,7 @@ const props = defineProps({
 </script>
 
 <template>
+  <div class="bump"></div>
   <div
     v-if="groupItem.margin"
     class="empty"

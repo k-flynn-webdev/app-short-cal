@@ -17,7 +17,7 @@ const calDataIslandsMargins = computed(() =>
 );
 
 // TODO : Re write this all with the idea that theres 3 modes/types of groupObject and render that way ""
-// todo eg ["small", "medium", "large"] based on that define the render
+// todo eg ["single", "small", "medium", "large"] based on that define the render
 // todo which means the build function needs to have that property!
 // todo also classes and extra things like that shouldn't be done in the object but worked out
 // todo in the component
@@ -77,7 +77,7 @@ const calDataIslandsMargins = computed(() =>
   }
 }
 .top {
-  margin-bottom: 0.5rem;
+  //margin-bottom: 0.5rem;
   //background-color: #7ca8d2;
 }
 .bottom {
@@ -90,19 +90,24 @@ const calDataIslandsMargins = computed(() =>
   background-color: #ffffff;
 }
 .is-tall.block {
+  height: 1.8rem;
   &.top {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
+    transform: translateY(0.25rem);
+    //margin-top: 0.5rem;
+    //margin-bottom: 0;
   }
   &.mid,
   &.bottom {
-    margin-bottom: 0.5rem;
+    transform: translateY(-0.5rem);
+    //margin-bottom: 0.5rem;
   }
 }
 
-.new-line {
-  width: 100%;
-  min-height: 0.2rem;
+.bump {
+  background: red;
+  display: inline-block;
+  width: 0;
+  min-height: 2.5rem;
 }
 .width-1 {
   width: 2rem;

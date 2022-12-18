@@ -1,10 +1,3 @@
-export function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  // The maximum is inclusive and the minimum is inclusive
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 const MIN_CALS = 1;
 const MIN_EVENTS = 5;
 
@@ -12,6 +5,13 @@ const MAX_CALS = 4;
 const MAX_EVENTS = 5;
 
 const MAX_DATE = 99;
+
+export const getRandomIntInclusive = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  // The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 export const createRandomCal = (min, max) => {
   let calData = [];
@@ -54,17 +54,18 @@ export const createDatesArray = () => {
 };
 
 export const createMonthObj = () => {
-  let days = createDatesArray();
-  let month = {};
-  days.forEach((day) => {
-    month[day] = [];
-  });
+  const days = createDatesArray();
 
-  return month;
+  return days.reduce((acc, current) => {
+    acc[current] = [];
+    return acc;
+  }, {});
 };
 
 export const createDataObj = (input) => {
   // generate all the data from calendars
+  if (!input) throw "Error: No data provided";
+
   return input.reduce((acc, currentCal, index) => {
     currentCal.forEach((cal) => {
       for (let i = cal.start, max = cal.end; i <= max; i++) {
@@ -78,7 +79,9 @@ export const createDataObj = (input) => {
 
 export const createDataIslands = (input) => {
   // generate the islands (start end of each date island)
-  let days = createDatesArray();
+  if (!input) throw "Error: No data provided";
+
+  const days = createDatesArray();
   let activeStartEndDays = [];
   let dateIslands = [];
   let dayPrevious = false;
@@ -104,47 +107,50 @@ export const createDataIslands = (input) => {
 };
 
 export const blockTotal = (input) => {
-  const blockValue = input.end + 1 - input.start;
-  return blockValue > 0 ? blockValue : 1;
+  const blockValue = input.end - input.start;
+  return blockValue + 1;
 };
 
 export const marginTotal = (blocks, cols, current) => {
-  let spaceLeftPre = 0;
+  if (!blocks || !cols || current === null || current === undefined)
+    throw "Error: Missing data";
+  if (!current) return 0;
 
-  if (current > 0) {
-    spaceLeftPre = cols - (current % cols);
+  let marginPre = cols - (current % cols);
 
-    if (spaceLeftPre < cols) {
-      // item will not fit inline add a space
-      if (blocks > cols) return 1;
+  if (marginPre < cols) {
+    // item will not fit inline add a space
+    if (blocks > cols) return 1;
 
-      // item will fit inline
-      if (blocks < spaceLeftPre) return 1;
-    } else {
-      // item will be new line
-      return 0;
-    }
+    // item will fit inline
+    if (blocks < marginPre) return 1;
+  } else {
+    // item will be new line
+    return 0;
   }
 
-  return spaceLeftPre;
+  return marginPre;
 };
 
-export const createDataIslandsMarginObj = (item, cols, current, idx) => {
-  const blockObj = {
+export const createBlockObj = (item, cols, current, idx) => {
+  const blocks = blockTotal(item);
+  const margin = marginTotal(blocks, cols, current);
+
+  return {
     idx,
     data: { ...item },
-    margin: 0,
-    block: 0,
-    isTall: false,
+    margin: margin,
+    block: blocks,
+    isTall: blocks > cols,
     top: { block: 0, content: "", class: [] },
     mid: { block: 0, content: "", class: [] },
     bottom: { block: 0, content: "", class: [] },
     current,
   };
+};
 
-  blockObj.block = blockTotal(item);
-  blockObj.margin = marginTotal(blockObj.block, cols, current);
-  blockObj.isTall = blockObj.block > cols;
+export const createDataIslandsMarginObj = (item, cols, current, idx) => {
+  const blockObj = createBlockObj(item, cols, current, idx);
 
   const currentLine = Math.floor((current + blockObj.margin) / cols);
   const line0Point = current + blockObj.margin;

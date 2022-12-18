@@ -15,6 +15,13 @@ const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
 const calDataIslandsMargins = computed(() =>
   getCalDataIslandsMargin.value(getCols.value)
 );
+
+// TODO : Re write this all with the idea that theres 3 modes/types of groupObject and render that way ""
+// todo eg ["small", "medium", "large"] based on that define the render
+// todo which means the build function needs to have that property!
+// todo also classes and extra things like that shouldn't be done in the object but worked out
+// todo in the component
+// todo new groupObject will no longer need top.block mid.block etc just an array with 1 - 3 values!
 </script>
 
 <template>
@@ -42,7 +49,7 @@ const calDataIslandsMargins = computed(() =>
 .block {
   display: block;
   background-color: #3e86c3;
-  border: 1px solid grey;
+  //border: 1px solid grey;
   height: 2rem;
   color: #2f2828;
   position: relative;
@@ -71,10 +78,10 @@ const calDataIslandsMargins = computed(() =>
 }
 .top {
   margin-bottom: 0.5rem;
-  background-color: #7ca8d2;
+  //background-color: #7ca8d2;
 }
 .bottom {
-  background-color: #1e507a;
+  //background-color: #1e507a;
 }
 .empty {
   width: 2rem;

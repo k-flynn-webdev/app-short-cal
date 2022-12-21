@@ -156,21 +156,15 @@ export const updateBlockObjCounts = (blockObj, current, cols) => {
   const line = getCurrentLine(currentWithMargin, cols);
   const endPoint = currentWithMargin + blockObj.block;
 
-  const countRanges = ["top", "mid", "bottom"].map((item, idx) => {
-    return {
-      key: item,
-      min: (line + idx) * cols,
-      max: (line + idx + 1) * cols,
-    };
-  });
-  countRanges[0].min = currentWithMargin;
+  ["top", "mid", "bottom"].forEach((item, idx) => {
+    const min = idx === 0 ? currentWithMargin : (line + idx) * cols;
+    const max = (line + idx + 1) * cols;
 
-  countRanges.forEach((item) => {
-    if (endPoint > item.min) {
-      if (endPoint < item.max) {
-        blockObj.counts[item.key] = endPoint - item.min;
-      } else {
-        blockObj.counts[item.key] = item.max - item.min;
+    if (endPoint > min) {
+      blockObj.counts[item] = max - min;
+
+      if (endPoint < max) {
+        blockObj.counts[item] = endPoint - min;
       }
     }
   });

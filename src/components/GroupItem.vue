@@ -7,13 +7,12 @@ const props = defineProps({
     required: true,
     default: () => {
       return {
-        idx: 0,
-        data: {},
+        idx: 999,
+        data: { start: 0, end: 0 },
         margin: 0,
-        top: { block: 0 },
-        mid: { block: 0 },
-        bottom: { block: 0 },
-        current: 0,
+        block: 0,
+        type: "",
+        counts: { top: 0, mid: 0, bottom: 0 },
       };
     },
   },
@@ -21,89 +20,56 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="bump"></div>
   <div
     v-if="groupItem.margin"
     class="empty"
-    :class="`width-${props.groupItem.margin}`"
+    :class="`width-${groupItem.margin}`"
   />
 
-  <div v-if="groupItem.top.block" class="block" :class="groupItem.top.class">
-    <template :key="item" v-for="item in groupItem.top.content">
-      <div class="text">
-        {{ item }}
-      </div>
-    </template>
-  </div>
-
-  <div v-if="groupItem.mid.block" class="block" :class="groupItem.mid.class">
-    <template :key="item" v-for="item in groupItem.mid.content">
-      <div class="text">
-        {{ item }}
-      </div>
-    </template>
-  </div>
-
   <div
-    v-if="groupItem.bottom.block"
-    class="block"
-    :class="groupItem.bottom.class"
+    v-if="groupItem.counts.top"
+    class="block top"
+    :class="`width-${groupItem.counts.top}`"
   >
-    <template :key="item" v-for="item in groupItem.bottom.content">
+    <template v-if="groupItem.type === 'single'">
+      <div class="text" />
       <div class="text">
-        {{ item }}
+        {{ groupItem.data.start }}
+      </div>
+      <div class="text" />
+    </template>
+
+    <template v-else>
+      <div class="text">
+        {{ groupItem.data.start }}
+      </div>
+    </template>
+
+    <template v-if="groupItem.type === 'small'">
+      <div class="text" />
+      <div class="text">
+        {{ groupItem.data.end }}
       </div>
     </template>
   </div>
 
-  <!--  <template v-for="idx in groupItem.margin" :key="idx">-->
-  <!--    <div class="empty" />-->
-  <!--  </template>-->
-  <!--  <template v-for="idx in groupItem.top.block" :key="idx">-->
-  <!--    <div class="block top">{{ groupItem.idx }}</div>-->
-  <!--  </template>-->
-  <!--  <template v-for="idx in groupItem.mid.block" :key="idx">-->
-  <!--    <div class="block mid">{{ groupItem.idx }}</div>-->
-  <!--  </template>-->
-  <!--  <template v-for="idx in groupItem.bottom.block" :key="idx">-->
-  <!--    <div class="block bottom">{{ groupItem.idx }}</div>-->
-  <!--  </template>-->
+  <div class="block mid" :class="`width-${groupItem.counts.mid}`">
+    <template v-if="groupItem.type === 'medium'">
+      <div class="text" />
+      <div class="text" />
+      <div class="text">
+        {{ groupItem.data.end }}
+      </div>
+    </template>
+  </div>
 
-  <!--  <div class="new-line"></div>-->
-
-  <!--  <template v-for="idx in groupItem.blocks" :key="idx">-->
-  <!--    <template v-if="groupItem.combined">-->
-  <!--      <div v-if="idx === 1" class="block text-center">-->
-  <!--        <span>&lt</span>-->
-  <!--        <span>{{ groupItem.data.start }}</span>-->
-  <!--        <span>&gt</span>-->
-  <!--      </div>-->
-  <!--    </template>-->
-
-  <!--    <template v-else>-->
-  <!--      <div v-if="idx === 1" class="block text-left">-->
-  <!--        <span>&lt</span>-->
-  <!--        <span>{{ groupItem.data.start }}</span>-->
-  <!--      </div>-->
-
-  <!--      <div-->
-  <!--        v-if="idx === groupItem.blocks - 1"-->
-  <!--        class="block text-right"-->
-  <!--        :class="groupItem.styleClass"-->
-  <!--      >-->
-  <!--        <span>{{ groupItem.data.end }} </span>-->
-  <!--        <span>&gt</span>-->
-  <!--      </div>-->
-
-  <!--      <div-->
-  <!--        v-if="idx < groupItem.blocks - 1"-->
-  <!--        class="block"-->
-  <!--        :class="groupItem.styleClass"-->
-  <!--      />-->
-  <!--    </template>-->
-  <!--  </template>-->
-
-  <!--  <template v-for="idx in groupItem.margin.post" :key="idx">-->
-  <!--    <div class="empty post" />-->
-  <!--  </template>-->
+  <div class="block bottom" :class="`width-${groupItem.counts.bottom}`">
+    <template v-if="groupItem.type === 'large'">
+      <div class="text" />
+      <div class="text" />
+      <div class="text">
+        {{ groupItem.data.end }}
+      </div>
+    </template>
+  </div>
 </template>

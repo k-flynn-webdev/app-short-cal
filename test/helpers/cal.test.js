@@ -8,6 +8,7 @@ import {
   createBlockObj,
   getCurrentLine,
   updateBlockObjCounts,
+  updateBlockObjType,
 } from "@/helpers/cal.js";
 
 test("Cal - getRandomIntInclusive - function", () => {
@@ -114,9 +115,9 @@ test("Cal - marginTotal - function", () => {
 });
 
 test("Cal - marginTotal - throw error", () => {
-  expect(() => marginTotal()).toThrow("Error: Missing data");
-  expect(() => marginTotal("blocks")).toThrow("Error: Missing data");
-  expect(() => marginTotal("blocks", "cols")).toThrow("Error: Missing data");
+  expect(() => marginTotal()).toThrow("Error: Missing blocks");
+  expect(() => marginTotal("blocks")).toThrow("Error: Missing current count");
+  expect(() => marginTotal("blocks", "cols")).toThrow("Error: Missing columns");
 });
 
 test("Cal - marginTotal - return 0 margin when current is 0", () => {
@@ -185,7 +186,7 @@ const mockBlockObj = {
   data: { start: 1, end: 2 },
   margin: 1,
   block: 0,
-  type: "single",
+  type: "",
   counts: { top: 0, mid: 0, bottom: 0 },
 };
 
@@ -213,7 +214,7 @@ test("Cal - updateBlockObjCounts - return top of blocks", () => {
   };
 
   expect(
-    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+    updateBlockObjCounts(mockBlockObjTop, cols, current).counts
   ).toStrictEqual({
     top: 4,
     mid: 0,
@@ -231,7 +232,7 @@ test("Cal - updateBlockObjCounts - return mid of blocks", () => {
   };
 
   expect(
-    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+    updateBlockObjCounts(mockBlockObjTop, cols, current).counts
   ).toStrictEqual({
     top: 5,
     mid: 3,
@@ -249,12 +250,52 @@ test("Cal - updateBlockObjCounts - return bottom of blocks", () => {
   };
 
   expect(
-    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+    updateBlockObjCounts(mockBlockObjTop, cols, current).counts
   ).toStrictEqual({
     top: 5,
     mid: 5,
     bottom: 3,
   });
+});
+
+test("Cal - updateBlockObjType - return single type", () => {
+  const mockBlockObjSingle = {
+    counts: { top: 1, mid: 0, bottom: 0 },
+    block: 1,
+    margin: 1,
+  };
+
+  expect(updateBlockObjType(mockBlockObjSingle).type).toBe("single");
+});
+
+test("Cal - updateBlockObjType - return small type", () => {
+  const mockBlockObjSmall = {
+    counts: { top: 3, mid: 0, bottom: 0 },
+    block: 3,
+    margin: 1,
+  };
+
+  expect(updateBlockObjType(mockBlockObjSmall).type).toBe("small");
+});
+
+test("Cal - updateBlockObjType - return medium type", () => {
+  const mockBlockObjMedium = {
+    counts: { top: 5, mid: 4, bottom: 0 },
+    block: 3,
+    margin: 1,
+  };
+
+  expect(updateBlockObjType(mockBlockObjMedium).type).toBe("medium");
+});
+
+test("Cal - updateBlockObjType - return large type", () => {
+  const mockBlockObjLarge = {
+    counts: { top: 5, mid: 5, bottom: 3 },
+    block: 3,
+    margin: 1,
+  };
+
+  expect(updateBlockObjType(mockBlockObjLarge).type).toBe("large");
 });
 
 // test("Cal - updateBlockObjCounts - return bottom of blocks", () => {

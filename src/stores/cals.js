@@ -1,10 +1,9 @@
 import { defineStore } from "pinia";
 import {
   createDataIslands,
-  createDataIslandsObj,
   createDataObj,
   createRandomCals,
-  createDataIslandsMargin,
+  createBlockList,
 } from "../helpers/cal";
 
 export const useCalsStore = defineStore({
@@ -18,11 +17,11 @@ export const useCalsStore = defineStore({
       const calData = createDataObj(state.cals);
       return createDataIslands(calData);
     },
-    getCalDataIslandsMargin: (state) => {
+    getCalBLocks: (state) => {
       const calData = createDataObj(state.cals);
       const dataIslands = createDataIslands(calData);
 
-      return (cols) => createDataIslandsMargin(dataIslands, cols);
+      return (cols) => createBlockList(dataIslands, cols);
     },
   },
   actions: {

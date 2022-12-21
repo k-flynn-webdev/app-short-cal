@@ -8,13 +8,9 @@ import { useInfoStore } from "@/stores/info";
 import { useCalsStore } from "@/stores/cals";
 
 const { getCols } = storeToRefs(useInfoStore());
-const { getCalDataIslands, getCalDataIslandsMargin } = storeToRefs(
-  useCalsStore()
-);
+const { getCalBLocks } = storeToRefs(useCalsStore());
 
-const calDataIslandsMargins = computed(() =>
-  getCalDataIslandsMargin.value(getCols.value)
-);
+const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 
 // TODO : Re write this all with the idea that theres 3 modes/types of groupObject and render that way ""
 // todo eg ["single", "small", "medium", "large"] based on that define the render
@@ -27,14 +23,14 @@ const calDataIslandsMargins = computed(() =>
 <template>
   <div class="container" :class="`width-${getCols}`">
     <GroupItem
-      v-for="groupItem in calDataIslandsMargins"
+      v-for="groupItem in calBLocks.data"
       :key="groupItem.idx"
       :group-item="groupItem"
     />
   </div>
 
-  <br />
-  <div v-for="item in calDataIslandsMargins" :key="item">
+  <!--  <br />-->
+  <div v-for="item in calBLocks.data" :key="item">
     {{ item }}
   </div>
 </template>
@@ -78,10 +74,10 @@ const calDataIslandsMargins = computed(() =>
 }
 .top {
   //margin-bottom: 0.5rem;
-  //background-color: #7ca8d2;
+  background-color: #7ca8d2;
 }
 .bottom {
-  //background-color: #1e507a;
+  background-color: #1e507a;
 }
 .empty {
   width: 2rem;

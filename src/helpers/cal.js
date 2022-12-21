@@ -112,8 +112,10 @@ export const blockTotal = (input) => {
 };
 
 export const marginTotal = (blocks, cols, current) => {
-  if (!blocks || !cols || current === null || current === undefined)
-    throw "Error: Missing data";
+  if (blocks === undefined) throw "Error: Missing blocks";
+  if (cols === undefined) throw "Error: Missing current count";
+  if (current === undefined) throw "Error: Missing columns";
+
   if (!current) return 0;
 
   let marginPre = cols - (current % cols);
@@ -151,7 +153,11 @@ export const createBlockObj = (item, cols, current, idx) => {
   };
 };
 
-export const updateBlockObjCounts = (blockObj, current, cols) => {
+export const updateBlockObjCounts = (blockObj, cols, current) => {
+  if (blockObj === undefined) throw "Error: Missing block object";
+  if (current === undefined) throw "Error: Missing current count";
+  if (cols === undefined) throw "Error: Missing columns";
+
   const currentWithMargin = current + blockObj.margin;
   const line = getCurrentLine(currentWithMargin, cols);
   const endPoint = currentWithMargin + blockObj.block;
@@ -163,58 +169,44 @@ export const updateBlockObjCounts = (blockObj, current, cols) => {
     if (endPoint > min) {
       blockObj.counts[item] = max - min;
 
-      if (endPoint < max) {
-        blockObj.counts[item] = endPoint - min;
-      }
+      if (endPoint < max) blockObj.counts[item] = endPoint - min;
     }
   });
 
   return blockObj;
 };
 
-export const updateContentObj = (input) => {
-  if (input.bottom.block > 0) {
-    input.top.content = [input.data.start, "", ""];
-    input.bottom.content = ["", "", input.data.end];
-
-    input.top.class = ["top", `width-${input.top.block}`, "is-tall"];
-    input.mid.class = ["mid", `width-${input.mid.block}`];
-    input.bottom.class = ["bottom", `width-${input.bottom.block}`, "is-tall"];
-    return;
-  }
-
-  if (input.mid.block > 0) {
-    input.top.content = [input.data.start, "", ""];
-    input.mid.content = ["", "", input.data.end];
-
-    input.top.class = ["top", `width-${input.top.block}`, "is-tall"];
-    input.mid.class = ["mid", `width-${input.mid.block}`, "is-tall"];
-    return;
-  }
-
-  if (input.top.block > 1) {
-    input.top.content = [input.data.start, "", input.data.end];
-    input.top.class = ["top", `width-${input.top.block}`];
+export const updateBlockObjType = (blockObj) => {
+  if (blockObj.block === 1) {
+    blockObj.type = "single";
   } else {
-    input.top.content = ["", input.data.start, ""];
-    input.top.class = ["top", `width-${input.top.block}`];
+    if (blockObj.counts.top > 0) {
+      blockObj.type = "small";
+    }
+    if (blockObj.counts.mid > 0) {
+      blockObj.type = "medium";
+    }
+    if (blockObj.counts.bottom > 0) {
+      blockObj.type = "large";
+    }
   }
+
+  return blockObj;
 };
 
-export const createDataIslandsMargin = (input, cols) => {
-  const dataIslandsList = [];
-  let current = 0;
+export const createBlockList = (input, cols) => {
+  return input.reduce(
+    (acc, item, idx) => {
+      const blockObj = createBlockObj(item, cols, acc.current, idx);
+      updateBlockObjCounts(blockObj, cols, acc.current);
+      updateBlockObjType(blockObj);
 
-  // TODO: turn into a reducer later on
+      acc.data.push(blockObj);
 
-  input.forEach((item, idx) => {
-    const itemObj = createDataIslandsObj(item, cols, current, idx);
-    updateContentObj(itemObj);
+      acc.current += blockObj.margin + blockObj.block;
 
-    current += itemObj.margin + itemObj.block;
-
-    return dataIslandsList.push(itemObj);
-  });
-
-  return dataIslandsList;
+      return acc;
+    },
+    { current: 0, data: [] }
+  );
 };

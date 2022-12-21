@@ -6,6 +6,8 @@ import {
   blockTotal,
   marginTotal,
   createBlockObj,
+  getCurrentLine,
+  updateBlockObjCounts,
 } from "@/helpers/cal.js";
 
 test("Cal - getRandomIntInclusive - function", () => {
@@ -153,16 +155,128 @@ test("Cal - createBlockObj - basic object", () => {
 
   expect(createBlockObj(data, cols, current, idx)).toStrictEqual({
     idx,
+    current,
     data,
     margin: 1,
     block: 17,
-    isTall: true,
-    top: { block: 0, content: "", class: [] },
-    mid: { block: 0, content: "", class: [] },
-    bottom: { block: 0, content: "", class: [] },
-    current,
+    type: "single",
+    counts: { top: 0, mid: 0, bottom: 0 },
   });
 });
+
+test("Cal - getCurrentLine - function", () => {
+  const isFunction = getCurrentLine;
+  expect(isFunction).toStrictEqual(expect.any(Function));
+});
+
+test("Cal - getCurrentLine - basic object", () => {
+  expect(getCurrentLine(3, 5)).toBe(0);
+  expect(getCurrentLine(6, 5)).toBe(1);
+  expect(getCurrentLine(12, 5)).toBe(2);
+});
+
+test("Cal - updateBlockObjCounts - function", () => {
+  const isFunction = updateBlockObjCounts;
+  expect(isFunction).toStrictEqual(expect.any(Function));
+});
+
+const mockBlockObj = {
+  idx: 999,
+  data: { start: 1, end: 2 },
+  margin: 1,
+  block: 0,
+  type: "single",
+  counts: { top: 0, mid: 0, bottom: 0 },
+};
+
+test("Cal - updateBlockObjCounts - return top of blocks", () => {
+  const cols = 5;
+  const current = 2;
+  const mockBlockObjTop = { ...mockBlockObj, block: 1 };
+
+  expect(
+    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+  ).toStrictEqual({
+    top: 1,
+    mid: 0,
+    bottom: 0,
+  });
+});
+
+test("Cal - updateBlockObjCounts - return top of blocks", () => {
+  const cols = 5;
+  const current = 3;
+  const mockBlockObjTop = {
+    ...mockBlockObj,
+    block: 4,
+    margin: 2,
+  };
+
+  expect(
+    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+  ).toStrictEqual({
+    top: 4,
+    mid: 0,
+    bottom: 0,
+  });
+});
+
+test("Cal - updateBlockObjCounts - return mid of blocks", () => {
+  const cols = 5;
+  const current = 3;
+  const mockBlockObjTop = {
+    ...mockBlockObj,
+    block: 8,
+    margin: 2,
+  };
+
+  expect(
+    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+  ).toStrictEqual({
+    top: 5,
+    mid: 3,
+    bottom: 0,
+  });
+});
+
+test("Cal - updateBlockObjCounts - return bottom of blocks", () => {
+  const cols = 5;
+  const current = 3;
+  const mockBlockObjTop = {
+    ...mockBlockObj,
+    block: 13,
+    margin: 2,
+  };
+
+  expect(
+    updateBlockObjCounts(mockBlockObjTop, current, cols).counts
+  ).toStrictEqual({
+    top: 5,
+    mid: 5,
+    bottom: 3,
+  });
+});
+
+// test("Cal - updateBlockObjCounts - return bottom of blocks", () => {
+//   const cols = 5;
+//   const current = 2;
+//   const mockBlockObj = {
+//     idx: 999,
+//     data: { start: 1, end: 2 },
+//     margin: 1,
+//     block: 7,
+//     type: "single",
+//     counts: { top: 0, mid: 0, bottom: 0 },
+//   };
+//
+//   expect(
+//     updateBlockObjCounts(mockBlockObj, current, cols).counts
+//   ).toStrictEqual({
+//     top: 2,
+//     mid: 5,
+//     bottom: 2,
+//   });
+// });
 
 // test("Group - createGroupObject - return a empty base group object", () => {
 //   const wrapper = shallowMount(Group);

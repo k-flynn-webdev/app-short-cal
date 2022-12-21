@@ -132,46 +132,46 @@ export const marginTotal = (blocks, cols, current) => {
   return marginPre;
 };
 
+export const getCurrentLine = (current, cols) => {
+  return Math.floor(current / cols);
+};
+
 export const createBlockObj = (item, cols, current, idx) => {
   const blocks = blockTotal(item);
   const margin = marginTotal(blocks, cols, current);
 
   return {
     idx,
+    current,
     data: { ...item },
     margin: margin,
     block: blocks,
-    isTall: blocks > cols,
-    top: { block: 0, content: "", class: [] },
-    mid: { block: 0, content: "", class: [] },
-    bottom: { block: 0, content: "", class: [] },
-    current,
+    type: "single",
+    counts: { top: 0, mid: 0, bottom: 0 },
   };
 };
 
-export const createDataIslandsMarginObj = (item, cols, current, idx) => {
-  const blockObj = createBlockObj(item, cols, current, idx);
+export const updateBlockObjCounts = (blockObj, current, cols) => {
+  const currentWithMargin = current + blockObj.margin;
+  const line = getCurrentLine(currentWithMargin, cols);
+  const endPoint = currentWithMargin + blockObj.block;
 
-  const currentLine = Math.floor((current + blockObj.margin) / cols);
-  const line0Point = current + blockObj.margin;
-  const line01Point = Math.floor((currentLine + 1) * cols);
-  const line02Point = Math.floor((currentLine + 2) * cols);
-  const line03Point = Math.floor((currentLine + 3) * cols);
-  const endPoint = current + blockObj.margin + blockObj.block;
+  const countRanges = ["top", "mid", "bottom"].map((item, idx) => {
+    return {
+      key: item,
+      min: (line + idx) * cols,
+      max: (line + idx + 1) * cols,
+    };
+  });
+  countRanges[0].min = currentWithMargin;
 
-  [
-    { key: "top", min: line0Point, max: line01Point },
-    { key: "mid", min: line01Point, max: line02Point },
-    { key: "bottom", min: line02Point, max: line03Point },
-  ].forEach((item) => {
-    const testMin = endPoint - item.min;
-    const testMax = endPoint - item.max;
-
-    if (testMin > 0) {
-      blockObj[item.key].block = Math.min(testMin, cols);
-    }
-    if (testMax > 0) {
-      blockObj[item.key].block = item.max - item.min;
+  countRanges.forEach((item) => {
+    if (endPoint > item.min) {
+      if (endPoint < item.max) {
+        blockObj.counts[item.key] = endPoint - item.min;
+      } else {
+        blockObj.counts[item.key] = item.max - item.min;
+      }
     }
   });
 
@@ -214,7 +214,7 @@ export const createDataIslandsMargin = (input, cols) => {
   // TODO: turn into a reducer later on
 
   input.forEach((item, idx) => {
-    const itemObj = createDataIslandsMarginObj(item, cols, current, idx);
+    const itemObj = createDataIslandsObj(item, cols, current, idx);
     updateContentObj(itemObj);
 
     current += itemObj.margin + itemObj.block;

@@ -121,7 +121,6 @@ export const marginTotal = (blocks, cols, current) => {
   let marginPre = cols - (current % cols);
 
   if (marginPre < cols) {
-    // console.log(marginPre);
     // item will not fit inline add a space
     if (blocks > cols) return 1;
 

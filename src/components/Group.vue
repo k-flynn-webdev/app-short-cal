@@ -76,13 +76,13 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
     width: 100%;
     &:before {
       left: -0.2rem;
-      right: -0.2rem;
+      right: 0;
     }
   }
   .text:nth-of-type(3) {
     right: 0;
     &:before {
-      right: -0.2rem;
+      right: 0;
     }
   }
 }

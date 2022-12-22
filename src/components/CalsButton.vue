@@ -3,7 +3,6 @@ import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
 import { useCalsStore } from "@/stores/cals";
 
-const { getCals } = storeToRefs(useCalsStore());
 const { fetchCals } = useCalsStore();
 
 onBeforeMount(() => {
@@ -14,6 +13,5 @@ onBeforeMount(() => {
 <template>
   <div>
     <button @click="fetchCals">New Cals</button>
-    <p>{{ getCals }}</p>
   </div>
 </template>

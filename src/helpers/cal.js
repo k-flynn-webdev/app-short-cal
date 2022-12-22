@@ -216,6 +216,6 @@ export const createBlockList = (input, cols) => {
 
       return acc;
     },
-    { current: 0, data: [] }
+    { current: 0, data: [], month: "Dec" }
   );
 };

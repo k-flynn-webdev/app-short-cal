@@ -11,31 +11,31 @@ const { getCols } = storeToRefs(useInfoStore());
 const { getCalBLocks } = storeToRefs(useCalsStore());
 
 const calBLocks = computed(() => getCalBLocks.value(getCols.value));
-
-// TODO : Re write this all with the idea that theres 3 modes/types of groupObject and render that way ""
-// todo eg ["single", "small", "medium", "large"] based on that define the render
-// todo which means the build function needs to have that property!
-// todo also classes and extra things like that shouldn't be done in the object but worked out
-// todo in the component
-// todo new groupObject will no longer need top.block mid.block etc just an array with 1 - 3 values!
 </script>
 
 <template>
-  <div class="container" :class="`width-${getCols}`">
-    <GroupItem
-      v-for="groupItem in calBLocks.data"
-      :key="groupItem.idx"
-      :group-item="groupItem"
-      :cols="getCols"
-    />
-  </div>
-
-  <div v-for="item in calBLocks.data" :key="item">
-    {{ item }}
+  <div>
+    <div class="month">{{ calBLocks.month }}</div>
+    <div class="container" :class="`width-${getCols}`">
+      <GroupItem
+        v-for="groupItem in calBLocks.data"
+        :key="groupItem.idx"
+        :group-item="groupItem"
+        :cols="getCols"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+.month {
+  font-weight: bold;
+  position: relative;
+  left: -0.5rem;
+  bottom: -0.25rem;
+  opacity: 50%;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;

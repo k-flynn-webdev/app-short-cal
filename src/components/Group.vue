@@ -70,7 +70,29 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   }
 }
 
+.clip-left:before {
+  content: "";
+  position: absolute;
+  top: -0.6rem;
+  left: -0.6rem;
+  transform: rotateZ(45deg);
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+}
+.clip-right:after {
+  content: "";
+  position: absolute;
+  bottom: -0.6rem;
+  right: -0.6rem;
+  transform: rotateZ(45deg);
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+}
+
 .top {
+  overflow: hidden;
   background-color: #7ca8d2;
 
   &.push {

@@ -35,23 +35,24 @@ const topClass = computed(() => {
   return [
     props.groupItem.type,
     `width-${props.groupItem.counts.top}`,
-    isSmall.value || isSingle ? "push" : "",
-    isMedium.value && props.groupItem.counts.top < 5 ? "extra" : "",
-    isLarge.value && props.groupItem.counts.top < 5 ? "extra" : "",
+    isSmall.value || isSingle.value ? "push clip-right" : "",
+    isMedium.value || isLarge.value ? " push" : "",
+    isMedium.value && props.groupItem.counts.top < 5 ? "extra push" : "",
+    isLarge.value && props.groupItem.counts.top < 5 ? "extra push" : "",
   ];
 });
 const midClass = computed(() => {
   return [
     props.groupItem.type,
     `width-${props.groupItem.counts.mid}`,
-    isMedium.value ? "push" : "",
+    isMedium.value ? "push clip-right" : "",
   ];
 });
 const bottomClass = computed(() => {
   return [
     props.groupItem.type,
     `width-${props.groupItem.counts.bottom}`,
-    isLarge.value ? "push" : "",
+    isLarge.value ? "push clip-right" : "",
   ];
 });
 </script>
@@ -63,7 +64,11 @@ const bottomClass = computed(() => {
     :class="`width-${groupItem.margin}`"
   />
 
-  <div v-if="groupItem.counts.top" class="block top" :class="topClass">
+  <div
+    v-if="groupItem.counts.top"
+    class="block top clip-left"
+    :class="topClass"
+  >
     <template v-if="isSingle">
       <div class="text" />
       <div class="text">

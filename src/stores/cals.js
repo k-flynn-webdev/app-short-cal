@@ -116,36 +116,36 @@ export const useCalsStore = defineStore({
       //     { start: 81, end: 86, id: 4 },
       //   ],
       // ];
-      this.cals = [
-        [
-          { start: 81, end: 82, id: 0 },
-          { start: 38, end: 48, id: 1 },
-          { start: 57, end: 67, id: 2 },
-          { start: 88, end: 89, id: 3 },
-          { start: 34, end: 35, id: 4 },
-        ],
-        [
-          { start: 49, end: 52, id: 0 },
-          { start: 69, end: 69, id: 1 },
-          { start: 46, end: 50, id: 2 },
-          { start: 7, end: 11, id: 3 },
-          { start: 45, end: 51, id: 4 },
-        ],
-        [
-          { start: 55, end: 62, id: 0 },
-          { start: 48, end: 58, id: 1 },
-          { start: 50, end: 50, id: 2 },
-          { start: 37, end: 41, id: 3 },
-          { start: 86, end: 91, id: 4 },
-        ],
-        [
-          { start: 12, end: 18, id: 0 },
-          { start: 26, end: 30, id: 1 },
-          { start: 16, end: 19, id: 2 },
-          { start: 79, end: 89, id: 3 },
-          { start: 30, end: 31, id: 4 },
-        ],
-      ];
+      // this.cals = [
+      //   [
+      //     { start: 81, end: 82, id: 0 },
+      //     { start: 38, end: 48, id: 1 },
+      //     { start: 57, end: 67, id: 2 },
+      //     { start: 88, end: 89, id: 3 },
+      //     { start: 34, end: 35, id: 4 },
+      //   ],
+      //   [
+      //     { start: 49, end: 52, id: 0 },
+      //     { start: 69, end: 69, id: 1 },
+      //     { start: 46, end: 50, id: 2 },
+      //     { start: 7, end: 11, id: 3 },
+      //     { start: 45, end: 51, id: 4 },
+      //   ],
+      //   [
+      //     { start: 55, end: 62, id: 0 },
+      //     { start: 48, end: 58, id: 1 },
+      //     { start: 50, end: 50, id: 2 },
+      //     { start: 37, end: 41, id: 3 },
+      //     { start: 86, end: 91, id: 4 },
+      //   ],
+      //   [
+      //     { start: 12, end: 18, id: 0 },
+      //     { start: 26, end: 30, id: 1 },
+      //     { start: 16, end: 19, id: 2 },
+      //     { start: 79, end: 89, id: 3 },
+      //     { start: 30, end: 31, id: 4 },
+      //   ],
+      // ];
     },
   },
 });

@@ -82,27 +82,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 }
 
 .bottom {
-  background-color: #1e507a;
-}
-
-.top {
-  //&.single,
-  //&.small {
-  //margin-top: 0.5rem;
-  //}
-}
-
-.top {
-  &.medium,
-  &.large {
-    //transform: translateY(0.5rem);
-  }
-}
-
-.bottom {
-  &.large {
-    //margin-bottom: 0.5rem;
-  }
+  background-color: #3872a5;
 }
 
 .empty {

@@ -90,7 +90,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 .text-underline {
   content: "";
   position: absolute;
-  bottom: 0;
+  bottom: -0.1rem;
   height: 0.3rem;
   width: 1.25rem;
   border-radius: 1rem;

@@ -16,6 +16,11 @@ const props = defineProps({
       };
     },
   },
+  cols: {
+    type: Number,
+    required: true,
+    default: 5,
+  },
 });
 
 const isSingle = computed(() => {
@@ -36,9 +41,9 @@ const topClass = computed(() => {
     props.groupItem.type,
     `width-${props.groupItem.counts.top}`,
     isSmall.value || isSingle.value ? "push clip-right" : "",
-    isMedium.value || isLarge.value ? " push" : "",
-    isMedium.value && props.groupItem.counts.top < 5 ? "extra push" : "",
-    isLarge.value && props.groupItem.counts.top < 5 ? "extra push" : "",
+    isMedium.value || isLarge.value ? "push" : "",
+    isMedium.value && props.groupItem.counts.top < props.cols ? "extra" : "",
+    isLarge.value && props.groupItem.counts.top < props.cols ? "extra" : "",
   ];
 });
 const midClass = computed(() => {

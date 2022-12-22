@@ -26,6 +26,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
       v-for="groupItem in calBLocks.data"
       :key="groupItem.idx"
       :group-item="groupItem"
+      :cols="getCols"
     />
   </div>
 

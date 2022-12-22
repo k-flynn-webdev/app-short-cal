@@ -42,7 +42,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   flex-direction: row;
 }
 .block {
-  background-color: #90a3e5;
+  background-color: #a2b1d7;
   color: #2f2828;
   display: block;
   height: 2rem;

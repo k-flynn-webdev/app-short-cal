@@ -32,13 +32,25 @@ const isLarge = computed(() => {
 });
 
 const topClass = computed(() => {
-  return [props.groupItem.type, `width-${props.groupItem.counts.top}`];
+  return [
+    props.groupItem.type,
+    `width-${props.groupItem.counts.top}`,
+    isSmall.value || isSingle ? "push" : "",
+  ];
 });
 const midClass = computed(() => {
-  return [props.groupItem.type, `width-${props.groupItem.counts.mid}`];
+  return [
+    props.groupItem.type,
+    `width-${props.groupItem.counts.mid}`,
+    isMedium.value ? "push" : "",
+  ];
 });
 const bottomClass = computed(() => {
-  return [props.groupItem.type, `width-${props.groupItem.counts.bottom}`];
+  return [
+    props.groupItem.type,
+    `width-${props.groupItem.counts.bottom}`,
+    isLarge.value ? "push" : "",
+  ];
 });
 </script>
 

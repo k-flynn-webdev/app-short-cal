@@ -72,7 +72,12 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 
 .top {
   background-color: #7ca8d2;
+
+  &.push {
+    margin-top: 0.5rem;
+  }
 }
+
 .bottom {
   background-color: #1e507a;
 }
@@ -80,7 +85,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 .top {
   //&.single,
   //&.small {
-  margin-top: 0.5rem;
+  //margin-top: 0.5rem;
   //}
 }
 
@@ -93,7 +98,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 
 .bottom {
   &.large {
-    margin-bottom: 0.5rem;
+    //margin-bottom: 0.5rem;
   }
 }
 

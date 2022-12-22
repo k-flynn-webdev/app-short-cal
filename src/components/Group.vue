@@ -74,7 +74,10 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   background-color: #7ca8d2;
 
   &.push {
-    margin-top: 0.5rem;
+    margin-top: 0.4rem;
+    &.extra {
+      margin-top: 0.8rem;
+    }
   }
 }
 

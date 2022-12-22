@@ -36,6 +36,8 @@ const topClass = computed(() => {
     props.groupItem.type,
     `width-${props.groupItem.counts.top}`,
     isSmall.value || isSingle ? "push" : "",
+    isMedium.value && props.groupItem.counts.top < 5 ? "extra" : "",
+    isLarge.value && props.groupItem.counts.top < 5 ? "extra" : "",
   ];
 });
 const midClass = computed(() => {

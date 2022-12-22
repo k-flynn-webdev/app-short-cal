@@ -17,6 +17,29 @@ const props = defineProps({
     },
   },
 });
+
+const isSingle = computed(() => {
+  return props.groupItem.type === "single";
+});
+const isSmall = computed(() => {
+  return props.groupItem.type === "small";
+});
+const isMedium = computed(() => {
+  return props.groupItem.type === "medium";
+});
+const isLarge = computed(() => {
+  return props.groupItem.type === "large";
+});
+
+const topClass = computed(() => {
+  return [props.groupItem.type, `width-${props.groupItem.counts.top}`];
+});
+const midClass = computed(() => {
+  return [props.groupItem.type, `width-${props.groupItem.counts.mid}`];
+});
+const bottomClass = computed(() => {
+  return [props.groupItem.type, `width-${props.groupItem.counts.bottom}`];
+});
 </script>
 
 <template>
@@ -26,12 +49,8 @@ const props = defineProps({
     :class="`width-${groupItem.margin}`"
   />
 
-  <div
-    v-if="groupItem.counts.top"
-    class="block top"
-    :class="`width-${groupItem.counts.top}`"
-  >
-    <template v-if="groupItem.type === 'single'">
+  <div v-if="groupItem.counts.top" class="block top" :class="topClass">
+    <template v-if="isSingle">
       <div class="text" />
       <div class="text">
         {{ groupItem.data.start }}
@@ -45,7 +64,7 @@ const props = defineProps({
       </div>
     </template>
 
-    <template v-if="groupItem.type === 'small'">
+    <template v-if="isSmall">
       <div class="text" />
       <div class="text">
         {{ groupItem.data.end }}
@@ -53,8 +72,8 @@ const props = defineProps({
     </template>
   </div>
 
-  <div class="block mid" :class="`width-${groupItem.counts.mid}`">
-    <template v-if="groupItem.type === 'medium'">
+  <div v-if="groupItem.counts.mid" class="block mid" :class="midClass">
+    <template v-if="isMedium">
       <div class="text" />
       <div class="text" />
       <div class="text">
@@ -63,13 +82,11 @@ const props = defineProps({
     </template>
   </div>
 
-  <div class="block bottom" :class="`width-${groupItem.counts.bottom}`">
-    <template v-if="groupItem.type === 'large'">
-      <div class="text" />
-      <div class="text" />
-      <div class="text">
-        {{ groupItem.data.end }}
-      </div>
-    </template>
+  <div v-if="groupItem.counts.bottom" class="block bottom" :class="bottomClass">
+    <div class="text" />
+    <div class="text" />
+    <div class="text">
+      {{ groupItem.data.end }}
+    </div>
   </div>
 </template>

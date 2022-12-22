@@ -29,7 +29,6 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
     />
   </div>
 
-  <!--  <br />-->
   <div v-for="item in calBLocks.data" :key="item">
     {{ item }}
   </div>
@@ -40,12 +39,10 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  //background-color: #ecb017;
 }
 .block {
   display: block;
   background-color: #3e86c3;
-  //border: 1px solid grey;
   height: 2rem;
   color: #2f2828;
   position: relative;
@@ -72,39 +69,41 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
     right: 0;
   }
 }
+
 .top {
-  //margin-bottom: 0.5rem;
   background-color: #7ca8d2;
 }
 .bottom {
   background-color: #1e507a;
 }
+
+.top {
+  //&.single,
+  //&.small {
+  margin-top: 0.5rem;
+  //}
+}
+
+.top {
+  &.medium,
+  &.large {
+    //transform: translateY(0.5rem);
+  }
+}
+
+.bottom {
+  &.large {
+    margin-bottom: 0.5rem;
+  }
+}
+
 .empty {
   width: 2rem;
   height: 2rem;
   color: #2f2828;
   background-color: #ffffff;
 }
-.is-tall.block {
-  height: 1.8rem;
-  &.top {
-    transform: translateY(0.25rem);
-    //margin-top: 0.5rem;
-    //margin-bottom: 0;
-  }
-  &.mid,
-  &.bottom {
-    transform: translateY(-0.5rem);
-    //margin-bottom: 0.5rem;
-  }
-}
 
-.bump {
-  background: red;
-  display: inline-block;
-  width: 0;
-  min-height: 2.5rem;
-}
 .width-1 {
   width: 2rem;
 }

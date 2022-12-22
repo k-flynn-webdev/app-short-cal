@@ -68,21 +68,21 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   .text:nth-of-type(1) {
     left: 0;
     &:before {
-      left: 0;
+      left: -0.2rem;
     }
   }
   .text:nth-of-type(2) {
     text-align: center;
     width: 100%;
     &:before {
-      left: 0;
-      right: 0;
+      left: -0.2rem;
+      right: -0.2rem;
     }
   }
   .text:nth-of-type(3) {
     right: 0;
     &:before {
-      right: 0;
+      right: -0.2rem;
     }
   }
 }

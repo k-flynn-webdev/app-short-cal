@@ -4,7 +4,7 @@ const MIN_EVENTS = 5;
 const MAX_CALS = 4;
 const MAX_EVENTS = 5;
 
-const MAX_DATE = 99;
+const MAX_DATE = 32;
 
 export const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);

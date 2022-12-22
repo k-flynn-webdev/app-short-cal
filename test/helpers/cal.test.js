@@ -55,10 +55,8 @@ test("Cal - createDataObj - throw error", () => {
 const mockCalendarData = [
   [{ start: 1, end: 12, id: 1 }],
   [{ start: 3, end: 6, id: 2 }],
-  [{ start: 7, end: 7, id: 3 }],
+  [{ start: 9, end: 12, id: 3 }],
   [{ start: 11, end: 15, id: 4 }],
-  [{ start: 45, end: 46, id: 5 }],
-  [{ start: 66, end: 66, id: 6 }],
 ];
 
 test("Cal - createDataObj - basic object", () => {
@@ -85,11 +83,7 @@ test("Cal - createDataIslands - throw error", () => {
 test("Cal - createDataIslands - basic object", () => {
   const mockData = createDataObj(mockCalendarData);
   const dataObj = createDataIslands(mockData);
-  expect(dataObj).toEqual([
-    { start: 1, end: 15 },
-    { start: 45, end: 46 },
-    { start: 66, end: 66 },
-  ]);
+  expect(dataObj).toEqual([{ start: 1, end: 15 }]);
 });
 
 test("Cal - blockTotal - function", () => {

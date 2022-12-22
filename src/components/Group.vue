@@ -38,11 +38,11 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 <style lang="scss">
 .container {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 .block {
-  background-color: #3e86c3;
+  background-color: #90a3e5;
   color: #2f2828;
   display: block;
   height: 2rem;
@@ -53,7 +53,12 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
     top: 0;
     display: block;
     position: absolute;
-    padding: 0 0.5rem;
+    padding: 0.2rem 0.4rem;
+    font-weight: bold;
+
+    &:before {
+      @extend .text-underline;
+    }
   }
 
   .text:empty {
@@ -62,14 +67,35 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 
   .text:nth-of-type(1) {
     left: 0;
+    &:before {
+      left: 0;
+    }
   }
   .text:nth-of-type(2) {
     text-align: center;
     width: 100%;
+    &:before {
+      left: 0;
+      right: 0;
+    }
   }
   .text:nth-of-type(3) {
     right: 0;
+    &:before {
+      right: 0;
+    }
   }
+}
+
+.text-underline {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 0.3rem;
+  width: 1.25rem;
+  border-radius: 1rem;
+  background-color: black;
+  opacity: 35%;
 }
 
 .clip {

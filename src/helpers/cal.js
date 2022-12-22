@@ -121,6 +121,7 @@ export const marginTotal = (blocks, cols, current) => {
   let marginPre = cols - (current % cols);
 
   if (marginPre < cols) {
+    // console.log(marginPre);
     // item will not fit inline add a space
     if (blocks > cols) return 1;
 
@@ -162,7 +163,9 @@ export const updateBlockObjCounts = (blockObj, cols, current) => {
   const line = getCurrentLine(currentWithMargin, cols);
   const endPoint = currentWithMargin + blockObj.block;
 
-  ["top", "mid", "bottom"].forEach((item, idx) => {
+  const keys = ["top", "mid", "bottom"];
+
+  keys.forEach((item, idx) => {
     const min = idx === 0 ? currentWithMargin : (line + idx) * cols;
     const max = (line + idx + 1) * cols;
 
@@ -172,6 +175,12 @@ export const updateBlockObjCounts = (blockObj, cols, current) => {
       if (endPoint < max) blockObj.counts[item] = endPoint - min;
     }
   });
+
+  // ensure all rows add up
+  blockObj.block = keys.reduce((acc, key) => {
+    acc += blockObj.counts[key];
+    return acc;
+  }, 0);
 
   return blockObj;
 };

@@ -42,11 +42,12 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   flex-wrap: wrap;
 }
 .block {
-  display: block;
   background-color: #3e86c3;
-  height: 2rem;
   color: #2f2828;
+  display: block;
+  height: 2rem;
   position: relative;
+  overflow: hidden;
 
   .text {
     top: 0;
@@ -71,30 +72,28 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
   }
 }
 
-.clip-left:before {
+.clip {
   content: "";
   position: absolute;
-  top: -0.6rem;
-  left: -0.6rem;
-  transform: rotateZ(45deg);
-  width: 1rem;
-  height: 1rem;
-  background-color: white;
-}
-.clip-right:after {
-  content: "";
-  position: absolute;
-  bottom: -0.6rem;
-  right: -0.6rem;
   transform: rotateZ(45deg);
   width: 1rem;
   height: 1rem;
   background-color: white;
 }
 
+.clip-left:before {
+  @extend .clip;
+  top: -0.6rem;
+  left: -0.6rem;
+}
+.clip-right:after {
+  @extend .clip;
+  bottom: -0.6rem;
+  right: -0.6rem;
+}
+
 .top {
-  overflow: hidden;
-  background-color: #7ca8d2;
+  //background-color: #49a9f2;
 
   &.push {
     margin-top: 0.4rem;
@@ -105,7 +104,7 @@ const calBLocks = computed(() => getCalBLocks.value(getCols.value));
 }
 
 .bottom {
-  background-color: #3872a5;
+  //background-color: #397ab3;
 }
 
 .empty {

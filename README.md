@@ -35,3 +35,8 @@ User should be able to visit (anom) and create a link to share in 5 clicks tops,
 - Click SAVE and SHARE button that copies the URL (taken to the shared URL).
 - IF original user that created page be shown a EDIT button 
 - All 100% anomanous no name, no data about entries just blocks.
+
+
+### TODO
+- add: https://feathers-pinia.pages.dev/guide/service-stores.html
+   - local store that interacts with API via Vue Pinia

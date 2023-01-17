@@ -1,17 +1,32 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import ColsButton from "@/components/ColsButton.vue";
-import CalsButton from "@/components/CalsButton.vue";
+import { watch } from "vue";
+import { useRouter } from "vue-router";
+import { onAppMountAccessToken, onAppLogOut } from "./helpers/oauthFlow.js";
+
+const router = useRouter();
+
+watch(
+  () => router.currentRoute.value.query,
+  () => {
+    onAppMountAccessToken(router);
+  }
+);
+watch(
+  () => router.currentRoute.value.fullPath,
+  () => {
+    onAppLogOut(router);
+  }
+);
 </script>
 
 <template>
   <div>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/about">About</RouterLink>
+    <RouterLink to="/group">Group</RouterLink>
+    <RouterLink to="/login">Login</RouterLink>
   </div>
-
-  <ColsButton />
-  <CalsButton />
 
   <RouterView />
 </template>

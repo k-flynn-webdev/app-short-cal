@@ -1,4 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  HOME,
+  LOGOUT,
+  onAppMountAccessToken,
+  onAppLogOut,
+} from "@/helpers/oauthFlow.js";
 
 vi.mock("@/plugins/http.js", () => {
   return {
@@ -16,11 +22,19 @@ vi.mock("@/helpers/authentication.js", () => {
   };
 });
 
-import { onAppMountAccessToken, onAppLogOut } from "@/helpers/oauthFlow.js";
-
 describe("oauthFlow", () => {
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  it("should be a string - HOME", () => {
+    const isString = HOME;
+    expect(isString).toStrictEqual(expect.any(String));
+  });
+
+  it("should be a string - LOGOUT", () => {
+    const isString = LOGOUT;
+    expect(isString).toStrictEqual(expect.any(String));
   });
 
   it("should be function - onAppMountAccessToken", () => {

@@ -1,72 +1,92 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  USER_TOKEN,
   getQueryAccessToken,
   getStorageAccessToken,
   setStorageAccessToken,
   clearStorageAccessToken,
 } from "@/helpers/authentication.js";
 
-test("Authentication - getQueryAccessToken - function", () => {
-  const isFunction = getQueryAccessToken;
-  expect(isFunction).toStrictEqual(expect.any(Function));
-});
+describe("Authentication", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    localStorage.clear();
+  });
 
-test("Authentication - getQueryAccessToken - falsy", () => {
-  expect(getQueryAccessToken()).toBeFalsy();
-  expect(getQueryAccessToken({})).toBeFalsy();
-  expect(getQueryAccessToken({ currentRoute: {} })).toBeFalsy();
-  expect(getQueryAccessToken({ currentRoute: { value: {} } })).toBeFalsy();
-  expect(getQueryAccessToken({ currentRoute: { value: {} } })).toBeFalsy();
-  expect(
-    getQueryAccessToken({ currentRoute: { value: { query: {} } } })
-  ).toBeFalsy();
-  expect(
-    getQueryAccessToken({
-      currentRoute: { value: { query: { access_token: "" } } },
-    })
-  ).toBeFalsy();
-});
+  it("should be a string - USER_TOKEN", () => {
+    const isString = USER_TOKEN;
+    expect(isString).toStrictEqual(expect.any(String));
+  });
 
-test("Authentication - getQueryAccessToken - key exists", () => {
-  const keyTest = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJ";
-  expect(
-    getQueryAccessToken({
-      currentRoute: { value: { query: { access_token: keyTest } } },
-    })
-  ).toBe(keyTest);
-});
+  it("should be a function - getQueryAccessToken", () => {
+    const isFunction = getQueryAccessToken;
+    expect(isFunction).toStrictEqual(expect.any(Function));
+  });
 
-test("Authentication - getStorageAccessToken - function", () => {
-  const isFunction = getStorageAccessToken;
-  expect(isFunction).toStrictEqual(expect.any(Function));
-});
+  it("should only accept an access_token query - getQueryAccessToken", () => {
+    expect(getQueryAccessToken()).toBe("");
+    expect(getQueryAccessToken({})).toBe("");
+    expect(getQueryAccessToken({ currentRoute: {} })).toBe("");
+    expect(getQueryAccessToken({ currentRoute: { value: {} } })).toBe("");
+    expect(
+      getQueryAccessToken({ currentRoute: { value: { query: {} } } })
+    ).toBe("");
+    expect(
+      getQueryAccessToken({
+        currentRoute: { value: { query: { access_token: "" } } },
+      })
+    ).toBe("");
+  });
 
-test("Authentication - getStorageAccessToken - value", () => {
-  const originalStorage = window.localStorage;
-  window.localStorage = { getItem: () => "testing" };
+  it("should accept an access_token query - getQueryAccessToken", () => {
+    const mockKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJ";
+    expect(
+      getQueryAccessToken({
+        currentRoute: { value: { query: { access_token: mockKey } } },
+      })
+    ).toBe(mockKey);
+  });
 
-  expect(getStorageAccessToken()).toStrictEqual("testing");
-  window.localStorage = originalStorage;
-});
+  it("should be a function - getStorageAccessToken", () => {
+    const isFunction = getStorageAccessToken;
+    expect(isFunction).toStrictEqual(expect.any(Function));
+  });
 
-test("Authentication - setStorageAccessToken - function", () => {
-  const isFunction = setStorageAccessToken;
-  expect(isFunction).toStrictEqual(expect.any(Function));
-});
+  it("should return localstorage accessToken - getStorageAccessToken", () => {
+    const mockKey = "accessToken";
+    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    getStorageAccessToken();
+    expect(getItemSpy).toBeCalledWith(mockKey);
+  });
 
-test("Authentication - setStorageAccessToken - value", () => {
-  window.localStorage.removeItem("accessToken");
-  setStorageAccessToken("new key");
-  expect(window.localStorage.getItem("accessToken")).toStrictEqual("new key");
-  window.localStorage.removeItem("accessToken");
-});
+  it("should be a function - setStorageAccessToken", () => {
+    const isFunction = setStorageAccessToken;
+    expect(isFunction).toStrictEqual(expect.any(Function));
+  });
 
-test("Authentication - clearStorageAccessToken - function", () => {
-  const isFunction = clearStorageAccessToken;
-  expect(isFunction).toStrictEqual(expect.any(Function));
-});
+  it("should early exit - setStorageAccessToken", () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+    setStorageAccessToken();
+    expect(setItemSpy).toBeCalledTimes(0);
+  });
 
-test("Authentication - clearStorageAccessToken - value", () => {
-  window.localStorage.setItem("accessToken", "123");
-  clearStorageAccessToken();
-  expect(window.localStorage.getItem("accessToken")).toBeNull();
+  it("should set localstorage accessToken - setStorageAccessToken", () => {
+    const mockKey = "accessToken";
+    const mockKeyValue = "valid_access_token";
+    const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+    setStorageAccessToken(mockKeyValue);
+    expect(setItemSpy).toBeCalledWith(mockKey, mockKeyValue);
+  });
+
+  it("should be a function - clearStorageAccessToken", () => {
+    const isFunction = clearStorageAccessToken;
+    expect(isFunction).toStrictEqual(expect.any(Function));
+  });
+
+  it("should clear localstorage accessToken - clearStorageAccessToken", () => {
+    const mockKey = "accessToken";
+    const removeItemSpy = vi.spyOn(Storage.prototype, "removeItem");
+    clearStorageAccessToken();
+    expect(removeItemSpy).toBeCalledWith(mockKey);
+  });
 });

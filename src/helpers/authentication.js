@@ -16,6 +16,7 @@ export const getStorageAccessToken = () => {
 };
 
 export const setStorageAccessToken = (accessToken) => {
+  if (!accessToken) return;
   return localStorage.setItem(USER_TOKEN, accessToken);
 };
 

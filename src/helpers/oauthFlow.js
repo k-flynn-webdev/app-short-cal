@@ -27,7 +27,6 @@ export const onAppLogOut = (router) => {
     router.currentRoute.value.fullPath &&
     router.currentRoute.value.fullPath.includes(LOGOUT)
   ) {
-    console.log("inside");
     clearStorageAccessToken();
     authRemove();
     router.push({ name: HOME });

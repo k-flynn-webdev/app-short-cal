@@ -1,14 +1,16 @@
-import { authSet, authRemove } from "../plugins/http.js";
+import { authSet, authRemove } from "@/plugins/http.js";
 import {
   getQueryAccessToken,
   setStorageAccessToken,
   clearStorageAccessToken,
-} from "./authentication.js";
+} from "@/helpers//authentication.js";
 
 export const HOME = "home";
 export const LOGOUT = "logout";
 
 export const onAppMountAccessToken = (router) => {
+  if (!router) return;
+
   const accessToken = getQueryAccessToken(router);
   if (accessToken) {
     setStorageAccessToken(accessToken);
@@ -25,6 +27,7 @@ export const onAppLogOut = (router) => {
     router.currentRoute.value.fullPath &&
     router.currentRoute.value.fullPath.includes(LOGOUT)
   ) {
+    console.log("inside");
     clearStorageAccessToken();
     authRemove();
     router.push({ name: HOME });

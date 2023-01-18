@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getStorageAccessToken } from "../helpers/authentication";
+import { getStorageAccessToken } from "@/helpers/authentication";
 
 export const authSet = (accessToken) => {
   axiosInstance.defaults.headers["Authorization"] = `Bearer ${accessToken}`;

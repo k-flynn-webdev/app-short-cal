@@ -1,7 +1,16 @@
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import LoginLocal from "@/components/LoginLocal.vue";
-// const { isLoading, clearLoading, setLoading } = isLoadingFactory();
+
+const wrapperMount = () => {
+  return shallowMount(LoginLocal, {
+    global: {
+      plugins: [createTestingPinia()],
+      stubs: ["AInput", "ABtn", "AAlert"],
+    },
+  });
+};
 
 describe("LoginLocal", () => {
   afterEach(() => {
@@ -9,10 +18,8 @@ describe("LoginLocal", () => {
     localStorage.clear();
   });
 
-  it("should be a bool - isLoading", () => {
-    const wrapper = mount(LoginLocal, {
-      loginDetails: { email: "test" },
-    });
-    console.log(wrapper);
+  it("should be truthy", () => {
+    const wrapper = wrapperMount();
+    expect(wrapper).toBeTruthy();
   });
 });

@@ -2,12 +2,12 @@
 
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
+import vue from "@vitejs/plugin-vue";
+import Unocss from "unocss/vite";
 
 export default defineConfig({
-  plugins: [
-    Vue(),
-  ],
+  plugins: [vue(), Unocss()],
+
   test: {
     globals: true,
     environment: 'jsdom',

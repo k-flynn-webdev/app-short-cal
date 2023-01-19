@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, computed } from "vue";
 import { useUserStore } from "@/stores/user";
-const { userLoginAPI } = useUserStore();
+const { userLoginAPI, getUserAPI } = useUserStore();
 import isLoadingFactory from "@/helpers/isLoadingFactory";
 import isErrorFactory from "@/helpers/isErrorFactory";
 
@@ -37,7 +37,7 @@ const onSubmitForm = async () => {
 
   setLoading();
   userLoginAPI(loginObj)
-    .then(() => {})
+    .then(() => getUserAPI())
     .catch((error) => setError(error))
     .finally(() => clearLoading());
 };

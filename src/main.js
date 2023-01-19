@@ -11,9 +11,13 @@ import "@anu-vue/preset-theme-default/dist/style.css";
 import "@/assets/main.css";
 
 const app = createApp(App);
+const appStore = createPinia();
 
 app.use(anu);
-app.use(createPinia());
+app.use(appStore);
 app.use(router);
 
 app.mount("#app");
+
+import { userMount } from "@/helpers//userMount.js";
+userMount(appStore);

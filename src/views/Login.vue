@@ -1,21 +1,22 @@
 <script setup>
-import { useUserStore } from "@/stores/user";
-const { getUsersAPI } = useUserStore();
-
-const gitHubLogin = import.meta.env.VITE_GITHUB_LOGIN;
-const googleLogin = import.meta.env.VITE_GOOGLE_LOGIN;
+import LoginLocal from "@/components/LoginLocal.vue";
+import LoginSocialGithub from "@/components/LoginSocialGithub.vue";
+import LoginSocialGoogle from "@/components/LoginSocialGoogle.vue";
 </script>
 
 <template>
-  <main>
-    <h1>Login</h1>
+  <div>
+    <div class="cards-demo-container">
+      <ACard title="Login">
+        <div class="grid-row place-items-stretch a-card-body">
+          <LoginLocal />
+        </div>
 
-    <a :href="gitHubLogin">Login with Github</a>
-    <br />
-    <a :href="googleLogin">Login with Google</a>
-
-    <br />
-
-    <button @click="getUsersAPI">test connection</button>
-  </main>
+        <div class="grid-row place-items-stretch a-card-body">
+          <LoginSocialGithub />
+          <LoginSocialGoogle />
+        </div>
+      </ACard>
+    </div>
+  </div>
 </template>

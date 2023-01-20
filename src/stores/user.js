@@ -23,7 +23,8 @@ export const useUserStore = defineStore({
     loginAPI(input) {
       return post("authentication", input)
         .then(({ data }) => {
-          return data;
+          this.user = data.user;
+          return data.accessToken;
         })
         .catch((e) => {
           throw e;
@@ -31,6 +32,7 @@ export const useUserStore = defineStore({
     },
     registerAPI(input) {
       return post("users", input)
+        .then(() => this.getUserAPI())
         .then(({ data }) => {
           return data;
         })

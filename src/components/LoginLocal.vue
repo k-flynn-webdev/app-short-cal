@@ -1,14 +1,16 @@
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { reactive, computed } from "vue";
 import { useUserStore } from "@/stores/user";
 import isLoadingFactory from "@/helpers/isLoadingFactory";
 import isErrorFactory from "@/helpers/isErrorFactory";
 import { validLoginDetails } from "@/helpers/authentication.js";
+import { onAppAccessTokenSuccess } from "@/helpers/oauthFlow.js";
 
-const { loginAPI, getUserAPI } = useUserStore();
+const { loginAPI } = useUserStore();
 const { isLoading, clearLoading, setLoading } = isLoadingFactory();
 const { isError, hasError, clearError, setError } = isErrorFactory();
+const router = useRouter();
 
 const loginDetails = reactive({
   email: "",
@@ -33,7 +35,7 @@ const onSubmitForm = async () => {
 
   setLoading();
   loginAPI(loginObj)
-    .then(() => getUserAPI())
+    .then((accessToken) => onAppAccessTokenSuccess(router, accessToken))
     .catch((error) => setError(error))
     .finally(() => clearLoading());
 };

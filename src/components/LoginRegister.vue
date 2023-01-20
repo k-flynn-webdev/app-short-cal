@@ -5,7 +5,7 @@ import isLoadingFactory from "@/helpers/isLoadingFactory";
 import isErrorFactory from "@/helpers/isErrorFactory";
 import { validLoginDetails } from "@/helpers/authentication.js";
 
-const { loginAPI, getUserAPI } = useUserStore();
+const { registerAPI, getUserAPI } = useUserStore();
 const { isLoading, clearLoading, setLoading } = isLoadingFactory();
 const { isError, hasError, clearError, setError } = isErrorFactory();
 
@@ -25,13 +25,12 @@ const onSubmitForm = async () => {
   clearError();
 
   const loginObj = {
-    strategy: "local",
     email: loginDetails.email,
     password: loginDetails.password,
   };
 
   setLoading();
-  loginAPI(loginObj)
+  registerAPI(loginObj)
     .then(() => getUserAPI())
     .catch((error) => setError(error))
     .finally(() => clearLoading());

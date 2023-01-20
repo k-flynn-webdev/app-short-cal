@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView, useRoute } from "vue-router";
-import { reactive, computed } from "vue";
+import { computed } from "vue";
 
 import LoginSocialGithub from "@/components/LoginSocialGithub.vue";
 import LoginSocialGoogle from "@/components/LoginSocialGoogle.vue";

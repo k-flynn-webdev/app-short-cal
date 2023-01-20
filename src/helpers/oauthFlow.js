@@ -14,13 +14,13 @@ export const onAppMountAccessToken = (router) => {
   const accessToken = getQueryAccessToken(router);
   if (accessToken) {
     onAppAccessTokenSuccess(accessToken);
+    router.push({ name: HOME });
   }
 };
 
-export const onAppAccessTokenSuccess = (router, accessToken) => {
+export const onAppAccessTokenSuccess = (accessToken) => {
   setStorageAccessToken(accessToken);
   authSet(accessToken);
-  router.push({ name: HOME });
 };
 
 export const onAppLogOut = (router) => {

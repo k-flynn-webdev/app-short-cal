@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { get, post } from "../plugins/http";
+import { get, post } from "@/plugins/http";
 
 export const useUserStore = defineStore({
   id: "user",

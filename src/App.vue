@@ -22,10 +22,10 @@ watch(
 
 <template>
   <div>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-    <RouterLink to="/group">Group</RouterLink>
-    <RouterLink to="/login">Login</RouterLink>
+    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+    <RouterLink :to="{ name: 'about' }">About</RouterLink>
+    <RouterLink :to="{ name: 'group' }">Group</RouterLink>
+    <RouterLink :to="{ name: 'login' }">Login</RouterLink>
   </div>
 
   <RouterView />

@@ -5,7 +5,6 @@ import { useUserStore } from "@/stores/user";
 import isLoadingFactory from "@/helpers/isLoadingFactory";
 import isErrorFactory from "@/helpers/isErrorFactory";
 import { validLoginDetails } from "@/helpers/authentication.js";
-import { onAppAccessTokenSuccess } from "@/helpers/oauthFlow.js";
 
 const { registerAPI } = useUserStore();
 const { isLoading, clearLoading, setLoading } = isLoadingFactory();
@@ -34,7 +33,9 @@ const onSubmitForm = async () => {
 
   setLoading();
   registerAPI(loginObj)
-    .then((accessToken) => onAppAccessTokenSuccess(router, accessToken))
+    .then((access_token) =>
+      router.push({ name: "login", query: { access_token } })
+    )
     .catch((error) => setError(error))
     .finally(() => clearLoading());
 };

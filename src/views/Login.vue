@@ -1,9 +1,9 @@
 <script setup>
+import { RouterView, useRoute } from "vue-router";
 import { reactive, computed } from "vue";
 
 import LoginSocialGithub from "@/components/LoginSocialGithub.vue";
 import LoginSocialGoogle from "@/components/LoginSocialGoogle.vue";
-import { RouterLink, RouterView, useRoute } from "vue-router";
 
 const route = useRoute();
 const routeName = computed(() => route?.meta?.title || "login");

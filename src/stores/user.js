@@ -20,7 +20,16 @@ export const useUserStore = defineStore({
           throw e;
         });
     },
-    userLoginAPI(input) {
+    loginAPI(input) {
+      return post("authentication", input)
+        .then(({ data }) => {
+          return data;
+        })
+        .catch((e) => {
+          throw e;
+        });
+    },
+    registerAPI(input) {
       return post("users", input)
         .then(({ data }) => {
           return data;

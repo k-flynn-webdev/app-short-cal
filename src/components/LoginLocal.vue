@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from "vue-router";
 import { reactive, computed } from "vue";
 import { useUserStore } from "@/stores/user";
 import isLoadingFactory from "@/helpers/isLoadingFactory";
@@ -64,6 +65,12 @@ const onSubmitForm = async () => {
         Login
       </ABtn>
     </form>
+
+    <div class="mt-4">
+      <RouterLink :to="{ name: 'register' }">
+        Don't have an account? Sign up here!
+      </RouterLink>
+    </div>
 
     <AAlert
       icon="i-bx-error"

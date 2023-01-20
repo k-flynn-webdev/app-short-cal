@@ -1,21 +1,27 @@
 <script setup>
-import { useUserStore } from "@/stores/user";
-const { getUsersAPI } = useUserStore();
+import { reactive, computed } from "vue";
 
-const gitHubLogin = import.meta.env.VITE_GITHUB_LOGIN;
-const googleLogin = import.meta.env.VITE_GOOGLE_LOGIN;
+import LoginSocialGithub from "@/components/LoginSocialGithub.vue";
+import LoginSocialGoogle from "@/components/LoginSocialGoogle.vue";
+import { RouterLink, RouterView, useRoute } from "vue-router";
+
+const route = useRoute();
+const routeName = computed(() => route?.meta?.title || "login");
 </script>
 
 <template>
-  <main>
-    <h1>Login</h1>
+  <div>
+    <div class="cards-demo-container">
+      <ACard :title="routeName">
+        <div class="grid-row place-items-stretch a-card-body">
+          <RouterView />
+        </div>
 
-    <a :href="gitHubLogin">Login with Github</a>
-    <br />
-    <a :href="googleLogin">Login with Google</a>
-
-    <br />
-
-    <button @click="getUsersAPI">test connection</button>
-  </main>
+        <div class="grid-row place-items-stretch a-card-body">
+          <LoginSocialGithub />
+          <LoginSocialGoogle />
+        </div>
+      </ACard>
+    </div>
+  </div>
 </template>

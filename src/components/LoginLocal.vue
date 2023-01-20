@@ -1,13 +1,15 @@
 <script setup>
+import { RouterLink, useRouter } from "vue-router";
 import { reactive, computed } from "vue";
 import { useUserStore } from "@/stores/user";
 import isLoadingFactory from "@/helpers/isLoadingFactory";
 import isErrorFactory from "@/helpers/isErrorFactory";
 import { validLoginDetails } from "@/helpers/authentication.js";
 
-const { loginAPI, getUserAPI } = useUserStore();
+const { loginAPI } = useUserStore();
 const { isLoading, clearLoading, setLoading } = isLoadingFactory();
 const { isError, hasError, clearError, setError } = isErrorFactory();
+const router = useRouter();
 
 const loginDetails = reactive({
   email: "",
@@ -32,7 +34,9 @@ const onSubmitForm = async () => {
 
   setLoading();
   loginAPI(loginObj)
-    .then(() => getUserAPI())
+    .then((access_token) =>
+      router.push({ name: "login", query: { access_token } })
+    )
     .catch((error) => setError(error))
     .finally(() => clearLoading());
 };
@@ -64,6 +68,12 @@ const onSubmitForm = async () => {
         Login
       </ABtn>
     </form>
+
+    <div class="mt-4">
+      <RouterLink :to="{ name: 'register' }">
+        Don't have an account? Sign up here!
+      </RouterLink>
+    </div>
 
     <AAlert
       icon="i-bx-error"

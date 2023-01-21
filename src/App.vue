@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import { watch } from "vue";
 import { useRouter } from "vue-router";
 import { onAppMountAccessToken, onAppLogOut } from "./helpers/oauthFlow.js";
+import LogOut from "@/components/LogOut.vue";
 
 const router = useRouter();
 
@@ -26,6 +27,7 @@ watch(
     <RouterLink :to="{ name: 'about' }">About</RouterLink>
     <RouterLink :to="{ name: 'group' }">Group</RouterLink>
     <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+    <LogOut />
   </div>
 
   <RouterView />

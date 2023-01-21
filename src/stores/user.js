@@ -1,18 +1,27 @@
 import { defineStore } from "pinia";
-import { get, post } from "@/plugins/http";
+import { get, post, remove } from "@/plugins/http";
 
 export const useUserStore = defineStore({
   id: "user",
   state: () => ({
+    isLoggedIn: false,
     user: {},
   }),
   getters: {},
   actions: {
+    setUser(user) {
+      this.user = user;
+      this.isLoggedIn = true;
+    },
+    removeUser() {
+      this.user = {};
+      this.isLoggedIn = false;
+    },
     getUserAPI() {
       return get("users")
         .then(({ data }) => {
           if (data && data.data && data.data[0]) {
-            this.user = data.data[0];
+            this.setUser(data.data[0]);
             return this.user;
           }
         })
@@ -23,8 +32,17 @@ export const useUserStore = defineStore({
     loginAPI(input) {
       return post("authentication", input)
         .then(({ data }) => {
-          this.user = data.user;
+          this.setUser(data.user);
           return data.accessToken;
+        })
+        .catch((e) => {
+          throw e;
+        });
+    },
+    logOutAPI() {
+      return remove("authentication")
+        .then(() => {
+          this.removeUser();
         })
         .catch((e) => {
           throw e;
@@ -34,7 +52,8 @@ export const useUserStore = defineStore({
       return post("users", input)
         .then(() => this.getUserAPI())
         .then(({ data }) => {
-          return data;
+          this.setUser(data.user);
+          return data.accessToken;
         })
         .catch((e) => {
           throw e;

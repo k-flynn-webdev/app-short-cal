@@ -7,6 +7,7 @@ import {
 
 export const HOME = "home";
 export const LOGOUT = "logout";
+export const LOGIN_SUCCESS = "login-success";
 
 export const onAppMountAccessToken = (router) => {
   if (!router) return;
@@ -14,7 +15,7 @@ export const onAppMountAccessToken = (router) => {
   const accessToken = getQueryAccessToken(router);
   if (accessToken) {
     onAppAccessTokenSuccess(accessToken);
-    router.push({ name: HOME });
+    router.push({ name: LOGIN_SUCCESS });
   }
 };
 

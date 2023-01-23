@@ -4,18 +4,19 @@ import { get, post, remove } from "@/plugins/http";
 export const useUserStore = defineStore({
   id: "user",
   state: () => ({
-    isLoggedIn: false,
     user: {},
   }),
-  getters: {},
+  getters: {
+    isLoggedIn() {
+      return this.user && this.user.id >= 0;
+    },
+  },
   actions: {
     setUser(user) {
       this.user = user;
-      this.isLoggedIn = true;
     },
     removeUser() {
       this.user = {};
-      this.isLoggedIn = false;
     },
     getUserAPI() {
       return get("users")

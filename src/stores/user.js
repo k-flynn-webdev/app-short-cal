@@ -30,6 +30,16 @@ export const useUserStore = defineStore({
           throw e;
         });
     },
+    registerAPI(input) {
+      return post("users", input)
+        .then(({ data }) => {
+          this.setUser(data.user);
+          return data.accessToken;
+        })
+        .catch((e) => {
+          throw e;
+        });
+    },
     loginAPI(input) {
       return post("authentication", input)
         .then(({ data }) => {
@@ -44,17 +54,6 @@ export const useUserStore = defineStore({
       return remove("authentication")
         .then(() => {
           this.removeUser();
-        })
-        .catch((e) => {
-          throw e;
-        });
-    },
-    registerAPI(input) {
-      return post("users", input)
-        .then(() => this.getUserAPI())
-        .then(({ data }) => {
-          this.setUser(data.user);
-          return data.accessToken;
         })
         .catch((e) => {
           throw e;

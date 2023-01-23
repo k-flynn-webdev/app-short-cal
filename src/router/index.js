@@ -28,6 +28,12 @@ const router = createRouter({
           meta: { title: "Register" },
           component: () => import("@/components/LoginRegister.vue"),
         },
+        {
+          path: "success",
+          name: "login-success",
+          meta: { title: "Success" },
+          component: () => import("@/components/LoginSuccess.vue"),
+        },
       ],
     },
     {

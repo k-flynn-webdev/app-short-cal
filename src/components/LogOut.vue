@@ -23,22 +23,22 @@ const onSubmitForm = async () => {
 
 <template>
   <div>
-    <ABtn
+    <x-button
       class="my-2 justify-self-start c-yellow"
       :disabled="isLoading"
       @click="onSubmitForm"
     >
       Logout
-    </ABtn>
+    </x-button>
 
-    <AAlert
+    <x-alert
       icon="i-bx-error"
       color="danger"
       class="my-4"
       dismissible
-      v-model="hasError"
+      v-if="hasError"
     >
       <span>{{ isError }}</span>
-    </AAlert>
+    </x-alert>
   </div>
 </template>

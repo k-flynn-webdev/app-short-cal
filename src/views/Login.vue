@@ -10,18 +10,16 @@ const routeName = computed(() => route?.meta?.title || "login");
 </script>
 
 <template>
-  <div>
-    <div class="cards-demo-container">
-      <ACard :title="routeName">
-        <div class="grid-row place-items-stretch a-card-body">
-          <RouterView />
-        </div>
+  <x-card class="max-w-md mx-auto mt-4 p-4">
+    <h1 class="text-3xl mb-4">{{ routeName }}</h1>
 
-        <div class="grid-row place-items-stretch a-card-body">
-          <LoginSocialGithub />
-          <LoginSocialGoogle />
-        </div>
-      </ACard>
+    <div class="md:flex gap-4">
+      <LoginSocialGoogle />
+      <LoginSocialGithub />
     </div>
-  </div>
+
+    <x-divider class="my-4" label="OR" />
+
+    <RouterView />
+  </x-card>
 </template>

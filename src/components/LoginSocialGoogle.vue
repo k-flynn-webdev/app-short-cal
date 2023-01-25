@@ -3,9 +3,8 @@ const googleLogin = import.meta.env.VITE_GOOGLE_LOGIN;
 </script>
 
 <template>
-  <a :href="googleLogin">
-    <ABtn class="w-full" variant="outline" color="success">
-      Continue with Google
-    </ABtn>
-  </a>
+  <x-button :href="googleLogin" variant="outline" class="w-full mb-2">
+    <font-awesome-icon icon="fa-brands fa-google" />
+    Login with Google
+  </x-button>
 </template>

@@ -43,45 +43,44 @@ const onSubmitForm = async () => {
 
 <template>
   <div>
-    <form name="login" @submit.prevent="onSubmitForm">
-      <AInput
+    <x-form name="login" @submit.prevent="onSubmitForm">
+      <x-input
         v-model.trim="loginDetails.email"
+        class="w-full"
         label="Email"
         type="email"
         placeholder="your.email@example.com"
         required
       />
-      <AInput
+      <x-input
         v-model="loginDetails.password"
+        class="w-full"
         label="Password"
         placeholder="xxxxxxxxxx"
         type="password"
         required
       />
-
-      <ABtn
-        class="my-2 justify-self-start c-yellow"
+      <x-button
+        class="w-full mt-4"
+        type="submit"
+        color="primary"
         :disabled="!loginDetailsValid || isLoading"
         @click="onSubmitForm"
       >
         Login
-      </ABtn>
-    </form>
+      </x-button>
+    </x-form>
+
+    <x-alert v-if="hasError" color="error" outlined type="error" light>
+      <span>{{ isError }}</span>
+    </x-alert>
 
     <div class="mt-4">
-      <RouterLink :to="{ name: 'login' }">
-        Already have an account? Login here!
-      </RouterLink>
-    </div>
+      <span class="text-slate-400">Already have an account? </span>
 
-    <AAlert
-      icon="i-bx-error"
-      color="danger"
-      class="my-4"
-      dismissible
-      v-model="hasError"
-    >
-      <span>{{ isError }}</span>
-    </AAlert>
+      <x-link shadow color="primary" :to="{ name: 'login' }">
+        Login here!
+      </x-link>
+    </div>
   </div>
 </template>

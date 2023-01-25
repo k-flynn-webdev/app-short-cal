@@ -1,0 +1,22 @@
+@import "./base.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.menu-parent {
+  position: relative;
+
+  .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 100%;
+    z-index: 10;
+
+    &.display {
+      display: block;
+    }
+  }
+}

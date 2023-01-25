@@ -25,7 +25,7 @@ const router = createRouter({
         {
           path: "register",
           name: "register",
-          meta: { title: "Register" },
+          meta: { title: "Create Account" },
           component: () => import("@/components/LoginRegister.vue"),
         },
         {

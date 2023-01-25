@@ -31,5 +31,7 @@ watch(
     <LoginLogOutDrop class="grow-0" />
   </div>
 
-  <RouterView />
+  <x-container class="md:container mx-0 px-0">
+    <RouterView />
+  </x-container>
 </template>

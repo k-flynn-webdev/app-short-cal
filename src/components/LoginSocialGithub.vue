@@ -3,9 +3,8 @@ const gitHubLogin = import.meta.env.VITE_GITHUB_LOGIN;
 </script>
 
 <template>
-  <a :href="gitHubLogin">
-    <ABtn class="w-full" variant="outline" color="success">
-      Continue with Github
-    </ABtn>
-  </a>
+  <x-button :href="gitHubLogin" variant="outline" class="w-full mb-2">
+    <font-awesome-icon icon="fa-brands fa-github" />
+    Login with Github
+  </x-button>
 </template>

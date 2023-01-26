@@ -27,6 +27,7 @@ watch(
       <RouterLink :to="{ name: 'home' }">Home</RouterLink>
       <RouterLink :to="{ name: 'about' }">About</RouterLink>
       <RouterLink :to="{ name: 'group' }">Group</RouterLink>
+      <RouterLink :to="{ name: 'create' }">Create</RouterLink>
     </div>
     <LoginLogOutDrop class="grow-0" />
   </div>

@@ -1,7 +1,7 @@
 <script setup>
 import { useCalBlockStore } from "@/stores/calBlock";
 import { storeToRefs } from "pinia";
-const { getCalBlocks } = storeToRefs(useCalBlockStore());
+const { getCalBlocks, error } = storeToRefs(useCalBlockStore());
 
 import AddCalendarButton from "@/components/AddCalendarButton.vue";
 import InputCalBlockForm from "@/components/InputCalBlockForm.vue";
@@ -19,5 +19,16 @@ import InputCalBlockForm from "@/components/InputCalBlockForm.vue";
     <InputCalBlockForm />
 
     <div>{{ getCalBlocks }}</div>
+
+    <x-alert
+      v-if="error"
+      color="error"
+      outlined
+      light
+      type="error"
+      class="my-4"
+    >
+      <span>{{ error }}</span>
+    </x-alert>
   </x-card>
 </template>

@@ -8,6 +8,7 @@ export const useCalBlockStore = defineStore({
   state: () => ({
     calBlockInput: { ...defaultCalBlockInput },
     calBlocks: [{}],
+    error: null,
   }),
   getters: {
     getCalBlocks() {
@@ -30,10 +31,14 @@ export const useCalBlockStore = defineStore({
       this.calBlockInput.type = type;
     },
     addCalBlock(block) {
-      return new Promise((res, rej) => {
-        this.calBlocks.push(block);
-        return res(true);
-      });
+      return post("calendar", block)
+        .then(({ data }) => {
+          this.calBlocks.push(data);
+        })
+        .catch((e) => {
+          this.error = e;
+          throw e;
+        });
     },
     removeCalBlock(block) {
       this.calBlocks.filter((item) => item.id !== block.id);

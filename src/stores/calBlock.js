@@ -9,6 +9,7 @@ export const useCalBlockStore = defineStore({
     calBlockInput: { ...defaultCalBlockInput },
     calBlocks: [{}],
     error: null,
+    isLoading: false,
   }),
   getters: {
     getCalBlocks() {
@@ -31,13 +32,19 @@ export const useCalBlockStore = defineStore({
       this.calBlockInput.type = type;
     },
     addCalBlock(block) {
+      this.clearError();
+      this.setLoading();
+
       return post("calendar", block)
         .then(({ data }) => {
           this.calBlocks.push(data);
         })
         .catch((e) => {
-          this.error = e;
+          this.setError(e);
           throw e;
+        })
+        .finally(() => {
+          this.clearLoading();
         });
     },
     removeCalBlock(block) {
@@ -45,6 +52,18 @@ export const useCalBlockStore = defineStore({
     },
     clearCalBlocks() {
       this.calBlocks = [];
+    },
+    setLoading() {
+      this.isLoading = true;
+    },
+    clearLoading() {
+      this.isLoading = false;
+    },
+    setError(error) {
+      this.error = error;
+    },
+    clearError() {
+      this.error = null;
     },
   },
 });

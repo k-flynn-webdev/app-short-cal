@@ -1,12 +1,10 @@
 <script setup>
 import { computed } from "vue";
 import { useCalBlockStore } from "@/stores/calBlock";
-import isLoadingFactory from "@/helpers/isLoadingFactory";
 import { storeToRefs } from "pinia";
 
-const { calBlockInput } = storeToRefs(useCalBlockStore());
+const { isLoading, calBlockInput } = storeToRefs(useCalBlockStore());
 const { resetCalBlockInput, addCalBlock } = useCalBlockStore();
-const { isLoading, clearLoading, setLoading } = isLoadingFactory();
 
 const showCalInput = computed(() => !!calBlockInput.value.type);
 
@@ -22,10 +20,7 @@ const onAddCalBlock = () => {
   if (isLoading.value) return;
   if (!isValid.value) return;
 
-  setLoading();
-
   addCalBlock(calBlockInput.value).then((data) => {
-    clearLoading();
     resetCalBlockInput();
   });
 };

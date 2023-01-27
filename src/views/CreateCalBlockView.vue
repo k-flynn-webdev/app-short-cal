@@ -1,5 +1,10 @@
 <script setup>
+import { useCalBlockStore } from "@/stores/calBlock";
+import { storeToRefs } from "pinia";
+const { getCalBlocks } = storeToRefs(useCalBlockStore());
+
 import AddCalendarButton from "@/components/AddCalendarButton.vue";
+import InputCalBlockForm from "@/components/InputCalBlockForm.vue";
 </script>
 
 <template>
@@ -11,5 +16,8 @@ import AddCalendarButton from "@/components/AddCalendarButton.vue";
     </div>
 
     <AddCalendarButton />
+    <InputCalBlockForm />
+
+    <div>{{ getCalBlocks }}</div>
   </x-card>
 </template>

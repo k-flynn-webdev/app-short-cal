@@ -10,7 +10,7 @@ const calendarTypes = [
     icon: "fa-brands fa-google",
     active: true,
   },
-  { name: "Apple", value: "apple", icon: "fa-brands fa-apple", active: false },
+  { name: "Apple", value: "apple", icon: "fa-brands fa-apple", active: true },
   {
     name: "Microsoft",
     value: "microsoft",

@@ -22,6 +22,11 @@ export const useCalBlockStore = defineStore({
       this.calBlockInput.url = url;
     },
     setCalBlockInputType(type) {
+      if (this.calBlockInput.type === type) {
+        this.resetCalBlockInput();
+        return;
+      }
+
       this.calBlockInput.type = type;
     },
     addCalBlock(block) {

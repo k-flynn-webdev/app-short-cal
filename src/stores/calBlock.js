@@ -1,9 +1,12 @@
 import { defineStore } from "pinia";
 import { get, post, remove } from "@/plugins/http";
 
+const defaultCalBlockInput = { url: "", type: null };
+
 export const useCalBlockStore = defineStore({
   id: "calBlock",
   state: () => ({
+    calBlockInput: { ...defaultCalBlockInput },
     calBlocks: [{}],
   }),
   getters: {
@@ -12,6 +15,15 @@ export const useCalBlockStore = defineStore({
     },
   },
   actions: {
+    resetCalBlockInput() {
+      this.calBlockInput = { ...defaultCalBlockInput };
+    },
+    setCalBlockInputURL(url) {
+      this.calBlockInput.url = url;
+    },
+    setCalBlockInputType(type) {
+      this.calBlockInput.type = type;
+    },
     addCalBlock(block) {
       return new Promise((res, rej) => {
         this.calBlocks.push(block);

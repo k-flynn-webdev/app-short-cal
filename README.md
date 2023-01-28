@@ -48,3 +48,8 @@ User should be able to visit (anom) and create a link to share in 5 clicks tops,
 - some companies out there offering a one size fits all calendar API to combine services, could be another business idea to compete with?
 - nylas, cronofy both seem to offer my idea, but they BOTH don't show it on their websites. beat them to this. Clunky and annoying. DONT advertise this way, shouldn't need to book a demo in order to see a feature!!! AND it shouldn't be in a video on youtube in order to demo it!!!!! FAIL
 - 
+
+
+##### TODO :
+- need to call google authorization API AFTER a user has google signed in to increase the scopes that I can access
+- still need to solve how im going to get a users google cal data

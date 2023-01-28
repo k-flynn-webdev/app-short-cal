@@ -2,6 +2,9 @@
 import { useCalBlockStore } from "@/stores/calBlock";
 const { setCalBlockInputType } = useCalBlockStore();
 
+// const { google } = require("googleapis");
+// const apis = google.getSupportedAPIs();
+
 // todo : move to a consts file
 const calendarTypes = [
   {

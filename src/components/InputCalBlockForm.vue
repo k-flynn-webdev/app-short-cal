@@ -3,6 +3,9 @@ import { computed } from "vue";
 import { useCalBlockStore } from "@/stores/calBlock";
 import { storeToRefs } from "pinia";
 
+const googleLogin = import.meta.env.VITE_GOOGLE_LOGIN;
+const appleLogin = import.meta.env.VITE_GOOGLE_LOGIN;
+
 const { isLoading, calBlockInput } = storeToRefs(useCalBlockStore());
 const { resetCalBlockInput, addCalBlock } = useCalBlockStore();
 

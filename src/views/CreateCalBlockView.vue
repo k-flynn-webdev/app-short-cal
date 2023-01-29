@@ -4,19 +4,29 @@ import { storeToRefs } from "pinia";
 const { getCalBlocks, error } = storeToRefs(useCalBlockStore());
 
 import AddCalendarButton from "@/components/AddCalendarButton.vue";
-import InputCalBlockForm from "@/components/InputCalBlockForm.vue";
+import AddCalendarComponent from "@/components/AddCalendarComponent.vue";
 </script>
 
 <template>
   <x-card class="max-w-md mx-auto mt-4 p-4">
-    <h1 class="text-3xl mb-4">Create new Block Cal</h1>
+    <h1 class="text-3xl mb-4">Create a Block Calendar</h1>
 
     <div class="tip">
       <p>Add one or more calendars to begin</p>
+      <span class="serious text-xs text-gray-300">
+        *We only use the date-time of each event in each calendar.
+      </span>
     </div>
 
     <AddCalendarButton />
-    <InputCalBlockForm />
+    <AddCalendarComponent />
+
+    <div class="tip">
+      <p>Choose a start and end date to share</p>
+      <span class="serious text-xs text-gray-300">
+        *We only use the date-time of each event in each calendar.
+      </span>
+    </div>
 
     <div>{{ getCalBlocks }}</div>
 

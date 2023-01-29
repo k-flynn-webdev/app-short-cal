@@ -2,9 +2,6 @@
 import { useCalBlockStore } from "@/stores/calBlock";
 const { setCalBlockInputType } = useCalBlockStore();
 
-// const { google } = require("googleapis");
-// const apis = google.getSupportedAPIs();
-
 // todo : move to a consts file
 const calendarTypes = [
   {
@@ -12,15 +9,29 @@ const calendarTypes = [
     value: "google",
     icon: "fa-brands fa-google",
     active: true,
+    component: "GoogleCalButton.vue",
   },
-  { name: "Apple", value: "apple", icon: "fa-brands fa-apple", active: true },
+  {
+    name: "Apple",
+    value: "apple",
+    icon: "fa-brands fa-apple",
+    active: true,
+    component: "GoogleCalButton.vue",
+  },
   {
     name: "Microsoft",
     value: "microsoft",
     icon: "fa-brands fa-microsoft",
     active: false,
+    component: "GoogleCalButton.vue",
   },
-  { name: "Yahoo", value: "yahoo", icon: "fa-brands fa-yahoo", active: false },
+  {
+    name: "Yahoo",
+    value: "yahoo",
+    icon: "fa-brands fa-yahoo",
+    active: false,
+    component: "GoogleCalButton.vue",
+  },
 ];
 </script>
 

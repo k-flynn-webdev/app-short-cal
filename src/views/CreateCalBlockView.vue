@@ -5,6 +5,7 @@ const { getCalBlocks, error } = storeToRefs(useCalBlockStore());
 
 import AddCalendarButton from "@/components/AddCalendarButton.vue";
 import AddCalendarComponent from "@/components/AddCalendarComponent.vue";
+import BlockCalStartEndInput from "@/components/BlockCalStartEndInput.vue";
 </script>
 
 <template>
@@ -21,8 +22,8 @@ import AddCalendarComponent from "@/components/AddCalendarComponent.vue";
     <AddCalendarButton />
     <AddCalendarComponent />
 
+    <BlockCalStartEndInput />
     <div class="tip">
-      <p>Choose a start and end date to share</p>
       <span class="serious text-xs text-gray-300">
         *We only use the date-time of each event in each calendar.
       </span>

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { get, post, remove } from "@/plugins/http";
 
-const defaultCalBlockInput = { url: "", type: null };
+const defaultCalBlockInput = { url: "", type: null, start: null, end: null };
 
 export const useCalBlockStore = defineStore({
   id: "calBlock",
@@ -22,6 +22,12 @@ export const useCalBlockStore = defineStore({
     },
     setCalBlockInputURL(url) {
       this.calBlockInput.url = url;
+    },
+    setCalBlockInputStart(start) {
+      this.calBlockInput.start = start;
+    },
+    setCalBlockInputEnd(end) {
+      this.calBlockInput.end = end;
     },
     setCalBlockInputType(type) {
       if (this.calBlockInput.type === type) {

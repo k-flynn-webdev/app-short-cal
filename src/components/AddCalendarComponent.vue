@@ -3,23 +3,31 @@ import { watch, ref, computed } from "vue";
 import { useCalBlockStore } from "@/stores/calBlock";
 import { storeToRefs } from "pinia";
 
+import CustomCalRequest from "@/components/CustomCalRequest.vue";
 import GoogleCalRequest from "@/components/GoogleCalRequest.vue";
 import AppleCalRequest from "@/components/AppleCalRequest.vue";
 
 // todo : move to a consts file
 const calendarTypes = [
   {
+    name: "Select days",
+    value: "custom",
+    icon: "fa fa-calendar",
+    active: true,
+    component: CustomCalRequest,
+  },
+  {
     name: "Google",
     value: "google",
     icon: "fa-brands fa-google",
-    active: true,
+    active: false,
     component: GoogleCalRequest,
   },
   {
     name: "Apple",
     value: "apple",
     icon: "fa-brands fa-apple",
-    active: true,
+    active: false,
     component: AppleCalRequest,
   },
   {

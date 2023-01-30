@@ -36,7 +36,7 @@ User should be able to visit (anom) and create a link to share in 5 clicks tops,
 - DISPLAY in realtime end result of selections
 - Click SAVE and SHARE button that copies the URL (taken to the shared URL).
 - IF original user that created page be shown a EDIT button 
-- All 100% anomanous no name, no data about entries just blocks.
+- All 100% anomalous no name, no data about entries just blocks.
 
 
 ### TODO
@@ -51,5 +51,6 @@ User should be able to visit (anom) and create a link to share in 5 clicks tops,
 
 
 ##### TODO :
-- need to call google authorization API AFTER a user has google signed in to increase the scopes that I can access
+- make small version first that can be shared among friends. just select dates manually `custom-calendar` component until I solve the calendar API issues
 - still need to solve how im going to get a users google cal data
+- need to call google authorization API AFTER a user has google signed in to increase the scopes that I can access

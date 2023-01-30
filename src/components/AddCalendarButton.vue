@@ -5,17 +5,24 @@ const { setCalBlockInputType } = useCalBlockStore();
 // todo : move to a consts file
 const calendarTypes = [
   {
+    name: "Select days",
+    value: "custom",
+    icon: "fa fa-calendar",
+    active: true,
+    component: "CustomCalButton.vue",
+  },
+  {
     name: "Google",
     value: "google",
     icon: "fa-brands fa-google",
-    active: true,
+    active: false,
     component: "GoogleCalButton.vue",
   },
   {
     name: "Apple",
     value: "apple",
     icon: "fa-brands fa-apple",
-    active: true,
+    active: false,
     component: "GoogleCalButton.vue",
   },
   {
@@ -36,11 +43,11 @@ const calendarTypes = [
 </script>
 
 <template>
-  <div class="flex gap-4 mb-4">
+  <div class="flex flex-wrap mb-4">
     <template :key="item.value" v-for="item in calendarTypes">
       <x-tooltip>
         <x-button
-          class="mt-4"
+          class="mt-4 mr-4"
           type="button"
           color="primary"
           :disabled="!item.active"
@@ -54,8 +61,11 @@ const calendarTypes = [
             <p v-if="!item.active" class="text-yellow-300">
               {{ "Available soon" }}
             </p>
-            <p class="text-gray-300">
-              {{ `Add a ${item.name} calendar` }}
+            <p v-if="item.name.split(' ').length > 1" class="text-gray-300">
+              {{ item.name }}
+            </p>
+            <p v-else class="text-gray-300">
+              {{ `Import a ${item.name} calendar` }}
             </p>
           </div>
         </template>

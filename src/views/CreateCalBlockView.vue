@@ -12,24 +12,20 @@ import BlockCalStartEndInput from "@/components/BlockCalStartEndInput.vue";
   <x-card class="max-w-md mx-auto mt-4 p-4">
     <h1 class="text-3xl mb-4">Create a Block Calendar</h1>
 
+    <BlockCalStartEndInput />
+
     <div class="tip">
-      <p>Add one or more calendars to begin</p>
+      <p>Import calendars</p>
       <span class="serious text-xs text-gray-300">
         *We only use the date-time of each event in each calendar.
       </span>
     </div>
 
     <AddCalendarButton />
+
     <AddCalendarComponent />
 
-    <BlockCalStartEndInput />
-    <div class="tip">
-      <span class="serious text-xs text-gray-300">
-        *We only use the date-time of each event in each calendar.
-      </span>
-    </div>
-
-    <div>{{ getCalBlocks }}</div>
+    <!--    <div>{{ getCalBlocks }}</div>-->
 
     <x-alert
       v-if="error"

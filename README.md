@@ -38,19 +38,36 @@ User should be able to visit (anom) and create a link to share in 5 clicks tops,
 - IF original user that created page be shown a EDIT button 
 - All 100% anomalous no name, no data about entries just blocks.
 
-
-### TODO
-- add: https://feathers-pinia.pages.dev/guide/service-stores.html
-   - local store that interacts with API via Vue Pinia
-
-
 #### RESEARCH
 - some companies out there offering a one size fits all calendar API to combine services, could be another business idea to compete with?
 - nylas, cronofy both seem to offer my idea, but they BOTH don't show it on their websites. beat them to this. Clunky and annoying. DONT advertise this way, shouldn't need to book a demo in order to see a feature!!! AND it shouldn't be in a video on youtube in order to demo it!!!!! FAIL
-- 
 
-
-##### TODO :
+##### TODO:
 - make small version first that can be shared among friends. just select dates manually `custom-calendar` component until I solve the calendar API issues
 - still need to solve how im going to get a users google cal data
 - need to call google authorization API AFTER a user has google signed in to increase the scopes that I can access
+- add: https://feathers-pinia.pages.dev/guide/service-stores.html
+   - local store that interacts with API via Vue Pinia
+  
+###### PROJECT PLAN:
+- User
+  - Create
+    - Login
+    - Logout
+- CalBlock
+  - Create
+    - Name
+    - StartDate
+    - EndDate
+    - AddDates/Import Cals
+    - Share CalBlock Output
+  - Update (orig/admin)
+    - Name
+    - StartDate
+    - EndDate
+    - AddDates/Import Cals
+    - Share CalBlock Output
+- CalBlockOutput
+  - AddDates/Import Cal (non-orig)
+  - View CalBlock Output
+  - Share CalBlock Output

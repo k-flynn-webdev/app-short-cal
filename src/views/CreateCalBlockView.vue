@@ -25,8 +25,6 @@ import BlockCalStartEndInput from "@/components/BlockCalStartEndInput.vue";
 
     <AddCalendarComponent />
 
-    <!--    <div>{{ getCalBlocks }}</div>-->
-
     <x-alert
       v-if="error"
       color="error"

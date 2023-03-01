@@ -71,3 +71,9 @@ User should be able to visit (anom) and create a link to share in 5 clicks tops,
   - AddDates/Import Cal (non-orig)
   - View CalBlock Output
   - Share CalBlock Output
+
+
+#### ISSUES:
+- If unable to run ensure you're running NODE in version ~16 
+    `nvm ls` - to show current versions available
+    `nvm use 16` - to switch to version 16  
